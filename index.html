@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>claudecode.studio — where do you stand?</title>
+  <meta name="description" content="We all use Claude Code differently. Take the 2-minute quiz, find where you are, and get one thing to try each week.">
+  <meta property="og:title" content="claudecode.studio — where do you stand?">
+  <meta property="og:description" content="We all use Claude Code differently. Find where you are and what to try next.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #fefefe;
+      --fg: #2a2a2a;
+      --coral: #f07050;
+      --coral-dim: #d85e42;
+      --coral-light: rgba(240,112,80,0.08);
+      --peach: #fce8dc;
+      --ocean: #3a5878;
+      --ocean-light: rgba(58,88,120,0.08);
+      --sky: #dceef8;
+      --surface: #f8f8f8;
+      --surface-hover: #f2f0ee;
+      --border: #e8e4e0;
+      --muted: #7a7570;
+      --font-sans: 'Nunito', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    }
+
+    ::selection { background: var(--coral); color: white; }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-sans);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* ── Animations ── */
+    @keyframes blink { 0%,50%{opacity:1} 51%,100%{opacity:0} }
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fillBar { from{width:0%} }
+    @keyframes progress { from{width:0%} }
+
+    .cursor-blink { animation: blink 1s infinite; }
+    .fade-in-up { animation: fadeInUp 0.5s ease-out forwards; opacity: 0; }
+    .level-bar { animation: fillBar 1s ease-out forwards; }
+    .progress-bar { animation: progress 0.3s ease-out; }
+
+    /* ── Layout ── */
+    .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr; gap: 40px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr; gap: 32px; }
+    @media(min-width:640px) {
+      .grid-2 { grid-template-columns: 1fr 1fr; }
+      .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+    }
+
+    /* ── Sections ── */
+    section { padding: 72px 24px; }
+    .section-border { border-top: 1px solid var(--border); }
+    .section-surface { background: var(--surface); }
+    .section-peach { background: var(--peach); }
+
+    /* ── Hero ── */
+    .hero { position: relative; padding: 72px 24px 80px; overflow: hidden; background: var(--peach); }
+    .hero-content { position: relative; max-width: 680px; margin: 0 auto; text-align: center; }
+
+    .terminal-prompt {
+      font-family: var(--font-mono); font-size: 13px; color: var(--ocean);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      opacity: 0.6;
+    }
+    .terminal-prompt .dollar { color: var(--coral); }
+    .terminal-prompt .cursor { color: var(--coral); }
+
+    h1 {
+      font-size: clamp(2.2rem, 5.5vw, 3.25rem); font-weight: 800;
+      margin-top: 28px; margin-bottom: 20px;
+      letter-spacing: -0.01em; line-height: 1.15;
+      color: var(--ocean);
+    }
+    h1 .accent { color: var(--coral); }
+
+    .hero-sub { color: var(--muted); font-size: 17px; max-width: 520px; margin: 0 auto 36px; line-height: 1.7; }
+
+    .cta-btn {
+      background: var(--coral); color: white; font-weight: 700;
+      padding: 14px 32px; border-radius: 10px; border: none; cursor: pointer;
+      font-size: 16px; font-family: var(--font-sans);
+      transition: background 0.2s, transform 0.1s;
+    }
+    .cta-btn:hover { background: var(--coral-dim); transform: translateY(-1px); }
+    .cta-btn:active { transform: translateY(0); }
+
+    .cta-note { color: var(--muted); font-size: 13px; margin-top: 14px; font-family: var(--font-mono); }
+
+    /* ── Social proof ── */
+    .social-proof {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 20px; font-size: 14px; color: var(--muted); padding: 40px 24px;
+    }
+    @media(min-width:640px) { .social-proof { flex-direction: row; gap: 32px; } }
+    .social-proof .num { font-family: var(--font-mono); color: var(--coral); font-size: 18px; font-weight: 700; }
+    .social-proof .divider { display: none; width: 1px; height: 16px; background: var(--border); }
+    @media(min-width:640px) { .social-proof .divider { display: block; } }
+
+    /* ── Section headings ── */
+    .section-heading { text-align: center; margin-bottom: 40px; }
+    .section-heading h2 { font-size: 1.75rem; font-weight: 800; margin-bottom: 12px; color: var(--ocean); }
+    .section-heading p { color: var(--muted); max-width: 520px; margin: 0 auto; font-size: 15px; }
+
+    /* ── Level cards ── */
+    .level-card {
+      border: 1px solid var(--border); border-radius: 12px; padding: 20px;
+      transition: all 0.2s; background: white;
+    }
+    .level-card:hover { border-color: var(--coral); box-shadow: 0 2px 12px rgba(240,112,80,0.08); }
+    .level-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+    .level-tag {
+      font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+      padding: 3px 9px; border-radius: 6px;
+    }
+    .level-card h3 { font-size: 17px; font-weight: 700; color: var(--ocean); }
+    .level-card p { color: var(--muted); font-size: 14px; line-height: 1.65; margin-bottom: 12px; }
+    .bar-track { flex: 1; height: 6px; background: var(--sky); border-radius: 99px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 99px; }
+    .level-unlock { font-size: 12px; color: var(--muted); font-family: var(--font-mono); margin-top: 12px; }
+    .levels-stack { display: flex; flex-direction: column; gap: 14px; }
+
+    /* ── How it works ── */
+    .step-num { font-family: var(--font-mono); color: var(--coral); font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+    .step h3 { font-weight: 700; margin-bottom: 8px; color: var(--ocean); font-size: 16px; }
+    .step p { color: var(--muted); font-size: 14px; line-height: 1.65; }
+
+    /* ── Problem/Solution ── */
+    .compare-heading {
+      font-family: var(--font-mono); font-size: 12px; text-transform: uppercase;
+      letter-spacing: 0.04em; margin-bottom: 16px; font-weight: 700;
+    }
+    .compare-heading.bad { color: var(--muted); }
+    .compare-heading.good { color: var(--coral); }
+    .compare-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .compare-list li {
+      display: flex; align-items: flex-start; gap: 8px;
+      color: var(--muted); font-size: 14px; line-height: 1.55;
+    }
+    .compare-list .icon { margin-top: 3px; flex-shrink: 0; font-size: 13px; }
+    .compare-list .icon.bad { color: var(--muted); opacity: 0.5; }
+    .compare-list .icon.good { color: var(--coral); }
+
+    /* ── Quiz ── */
+    .quiz-container { max-width: 600px; margin: 0 auto; }
+    .quiz-progress { margin-bottom: 28px; }
+    .quiz-progress-header {
+      display: flex; justify-content: space-between;
+      font-size: 12px; color: var(--muted); font-family: var(--font-mono); margin-bottom: 8px;
+    }
+    .quiz-progress-track { height: 5px; background: var(--sky); border-radius: 99px; overflow: hidden; }
+    .quiz-progress-fill { height: 100%; background: var(--coral); border-radius: 99px; transition: width 0.3s; }
+    .quiz-question { font-size: 19px; font-weight: 700; margin-bottom: 22px; color: var(--ocean); }
+    .quiz-options { display: flex; flex-direction: column; gap: 10px; }
+    .quiz-option {
+      width: 100%; text-align: left; padding: 15px 18px; border: 1px solid var(--border);
+      border-radius: 10px; background: white; color: var(--fg);
+      font-family: var(--font-mono); font-size: 13px; cursor: pointer;
+      transition: all 0.15s; line-height: 1.5;
+    }
+    .quiz-option:hover { border-color: var(--coral); background: var(--coral-light); }
+    .quiz-option:hover .option-letter { color: var(--coral); }
+    .quiz-option .option-letter { color: var(--muted); margin-right: 10px; transition: color 0.15s; }
+
+    /* ── Result ── */
+    .result { max-width: 600px; margin: 0 auto; }
+    .result-header { text-align: center; margin-bottom: 36px; }
+    .result-label { font-family: var(--font-mono); font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+    .result-badge {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 12px 24px; border-radius: 10px; margin-bottom: 14px;
+    }
+    .result-badge .tag {
+      font-family: var(--font-mono); font-size: 13px; font-weight: 700;
+      padding: 3px 9px; border-radius: 6px;
+    }
+    .result-badge .name { font-size: 22px; font-weight: 800; color: var(--ocean); }
+    .result-desc { color: var(--muted); max-width: 440px; margin: 14px auto 0; font-size: 15px; }
+
+    .result-path {
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 24px; background: white; margin-bottom: 28px;
+    }
+    .result-path h4 {
+      font-weight: 700; font-size: 12px; text-transform: uppercase;
+      letter-spacing: 0.04em; color: var(--muted); margin-bottom: 16px;
+    }
+    .path-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .path-row:last-child { margin-bottom: 0; }
+    .path-tag { font-family: var(--font-mono); font-size: 12px; font-weight: 700; width: 32px; text-align: center; }
+    .path-bar { flex: 1; height: 8px; background: var(--sky); border-radius: 99px; overflow: hidden; }
+    .path-bar-fill { height: 100%; border-radius: 99px; transition: width 0.5s; }
+    .path-name { font-size: 12px; width: 96px; }
+    .path-you { font-size: 12px; color: var(--coral); font-family: var(--font-mono); font-weight: 700; }
+
+    /* ── Email capture ── */
+    .email-capture {
+      border: 1px solid rgba(240,112,80,0.25); border-radius: 12px;
+      padding: 24px; background: var(--coral-light);
+    }
+    .email-capture h4 { font-weight: 700; margin-bottom: 8px; color: var(--ocean); }
+    .email-capture p { color: var(--muted); font-size: 14px; margin-bottom: 16px; }
+    .email-form { display: flex; gap: 10px; }
+    .email-input {
+      flex: 1; background: white; border: 1px solid var(--border);
+      border-radius: 10px; padding: 11px 16px; color: var(--fg);
+      font-family: var(--font-mono); font-size: 14px;
+      outline: none; transition: border-color 0.2s;
+    }
+    .email-input::placeholder { color: rgba(122,117,112,0.45); }
+    .email-input:focus { border-color: var(--coral); }
+    .email-submit {
+      background: var(--coral); color: white; font-weight: 700;
+      padding: 11px 22px; border-radius: 10px; border: none; cursor: pointer;
+      font-size: 14px; font-family: var(--font-sans); white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .email-submit:hover { background: var(--coral-dim); }
+    @media(max-width:480px) { .email-form { flex-direction: column; } }
+
+    .email-success { text-align: center; }
+    .email-success .check { color: var(--coral); font-size: 28px; margin-bottom: 8px; }
+    .email-success p:first-of-type { font-weight: 700; color: var(--ocean); }
+    .email-success p:last-of-type { color: var(--muted); font-size: 14px; margin-top: 4px; }
+
+    .retake {
+      display: block; margin: 22px auto 0; background: none; border: none;
+      color: var(--muted); font-size: 12px; font-family: var(--font-mono);
+      cursor: pointer; transition: color 0.2s;
+    }
+    .retake:hover { color: var(--coral); }
+
+    /* ── CTA section ── */
+    .cta-section { text-align: center; }
+    .cta-section h2 { font-size: 1.75rem; font-weight: 800; margin-bottom: 12px; color: var(--ocean); }
+    .cta-section p { color: var(--muted); margin-bottom: 28px; font-size: 15px; }
+
+    /* ── Footer ── */
+    footer {
+      padding: 28px 24px; border-top: 1px solid var(--border);
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: space-between; gap: 12px;
+      font-size: 13px; color: var(--muted); max-width: 720px; margin: 0 auto;
+    }
+    @media(min-width:640px) { footer { flex-direction: row; } }
+    footer .brand { font-family: var(--font-mono); font-weight: 700; }
+    footer .brand .accent { color: var(--coral); }
+
+    /* ── Utility ── */
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <main>
+    <!-- ─── HERO ─── -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="fade-in-up">
+          <div class="terminal-prompt">
+            <span class="dollar">$</span>
+            <span>claude --where-am-i</span>
+            <span class="cursor cursor-blink">▊</span>
+          </div>
+        </div>
+        <h1 class="fade-in-up" style="animation-delay:150ms">
+          You know Claude Code can do more.<br>
+          <span class="accent">Let's figure out what.</span>
+        </h1>
+        <p class="hero-sub fade-in-up" style="animation-delay:300ms">
+          We've all been there. You see someone do something wild with Claude Code and think "wait, it can do that?" This quiz shows you where you are today and what to try next.
+        </p>
+        <div class="fade-in-up" style="animation-delay:450ms">
+          <button class="cta-btn" onclick="scrollToQuiz()">See where you stand</button>
+          <p class="cta-note">7 questions · 2 min · no account needed</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── SOCIAL PROOF ─── -->
+    <section class="section-border" style="padding:40px 24px">
+      <div class="social-proof">
+        <div><span class="num">1,000+</span> people figuring this out together</div>
+        <div class="divider"></div>
+        <div><span class="num">100+</span> use cases we've collected</div>
+        <div class="divider"></div>
+        <div><span class="num">30+</span> skills you can install today</div>
+      </div>
+    </section>
+
+    <!-- ─── MATURITY FRAMEWORK ─── -->
+    <section class="section-border">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Five levels, one honest question: where are you?</h2>
+          <p>Most of us sit at L1 or L2 without realizing there's more. The know-how exists, it's just buried in Twitter threads and random meetup conversations. We pulled it together.</p>
+        </div>
+        <div class="levels-stack" id="levels-stack"></div>
+      </div>
+    </section>
+
+    <!-- ─── HOW IT WORKS ─── -->
+    <section class="section-border section-surface">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Here's what happens next</h2>
+        </div>
+        <div class="grid-3">
+          <div class="step">
+            <div class="step-num">01</div>
+            <h3>Find your level</h3>
+            <p>Seven questions, no trick answers. Just be honest about how you actually use Claude Code today.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <h3>Get one thing to try each week</h3>
+            <p>A use case that fits your level, a skill to install, and a small challenge. That's it. One email, once a week.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <h3>Actually do it</h3>
+            <p>Each challenge is something real you can finish in a sitting. No "build a full app" nonsense. Small wins that add up.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── THE PROBLEM ─── -->
+    <section class="section-border">
+      <div class="container">
+        <div class="grid-2">
+          <div>
+            <div class="compare-heading bad">Sound familiar?</div>
+            <ul class="compare-list">
+              <li><span class="icon bad">~</span> You've bookmarked 200 tweets about Claude Code and opened maybe 5</li>
+              <li><span class="icon bad">~</span> You watched a YouTube tutorial last week and can't remember any of it</li>
+              <li><span class="icon bad">~</span> You stayed way too late at a meetup writing down someone's whole setup</li>
+              <li><span class="icon bad">~</span> You swing between "this changes everything" and "I'm already behind"</li>
+              <li><span class="icon bad">~</span> You know you could be doing more but there's no obvious next step</li>
+            </ul>
+          </div>
+          <div>
+            <div class="compare-heading good">What we're building here</div>
+            <ul class="compare-list">
+              <li><span class="icon good">+</span> You know your level. No guessing, no comparing yourself to Twitter power users</li>
+              <li><span class="icon good">+</span> One thing to try this week, not a firehose</li>
+              <li><span class="icon good">+</span> Skills you actually install and use the same day</li>
+              <li><span class="icon good">+</span> Challenges small enough to finish, useful enough to keep</li>
+              <li><span class="icon good">+</span> A sense of progress you can actually feel, week after week</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── QUIZ / RESULT ─── -->
+    <section class="section-border section-peach" id="quiz-section">
+      <div class="container">
+        <!-- Pre-quiz CTA -->
+        <div class="cta-section" id="quiz-cta">
+          <h2>Alright, let's do this</h2>
+          <p>Seven questions about how you actually use Claude Code. No wrong answers, no signup. Just you and some honest self-reflection.</p>
+          <button class="cta-btn" onclick="startQuiz()">Let's go</button>
+        </div>
+
+        <!-- Quiz -->
+        <div class="quiz-container hidden" id="quiz">
+          <div class="quiz-progress">
+            <div class="quiz-progress-header">
+              <span id="quiz-counter">Question 1/7</span>
+              <span id="quiz-percent">14%</span>
+            </div>
+            <div class="quiz-progress-track">
+              <div class="quiz-progress-fill" id="quiz-bar" style="width:14%"></div>
+            </div>
+          </div>
+          <h3 class="quiz-question" id="quiz-question"></h3>
+          <div class="quiz-options" id="quiz-options"></div>
+        </div>
+
+        <!-- Result -->
+        <div class="result hidden" id="result"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="brand"><span class="accent">claudecode</span>.studio</div>
+    <div>Made by someone who spent too many late nights figuring this out alone.</div>
+  </footer>
+
+  <script>
+    /* ─── DATA ─── */
+    const LEVELS = [
+      { id:1, name:"Prompter",     tag:"L1", color:"#7a7570", percent:20,
+        description:"You ask Claude Code questions and read what comes back. Copy, paste, done. We all start here.",
+        unlock:"Try asking Claude Code to do something with a file on your machine." },
+      { id:2, name:"Operator",     tag:"L2", color:"#3a5878", percent:40,
+        description:"You've started pointing Claude Code at your actual files. Renaming things, pulling out data, writing docs. It saves you real time.",
+        unlock:"Try chaining two tasks together in one prompt." },
+      { id:3, name:"Builder",      tag:"L3", color:"#7c5cbf", percent:60,
+        description:"You write and ship code through Claude Code. Git, tests, PRs. Your terminal is your IDE now.",
+        unlock:"Try shipping something end-to-end without leaving the terminal." },
+      { id:4, name:"Automator",    tag:"L4", color:"#e09030", percent:80,
+        description:"You've made custom skills, set up hooks, connected MCP servers. Parts of your workflow run on their own.",
+        unlock:"Try building a skill that someone else could install." },
+      { id:5, name:"Orchestrator", tag:"L5", color:"#f07050", percent:100,
+        description:"Multi-agent setups, observability, CI/CD. Claude Code runs like a small engineering team you designed.",
+        unlock:"Honestly? You're ahead of most of us. Come teach what you know." }
+    ];
+
+    const QUESTIONS = [
+      { question:"When you open Claude Code, what do you usually do first?",
+        options:[
+          {text:"Ask it something and read the answer",score:1},
+          {text:"Point it at files and have it process them",score:2},
+          {text:"Describe what I'm building and start coding",score:3},
+          {text:"Run a custom skill or kick off an automation",score:4}
+        ]},
+      { question:"You've got a task with multiple steps. What's your move?",
+        options:[
+          {text:"Handle each step one at a time",score:1},
+          {text:"Describe the whole thing in one prompt and hope for the best",score:2},
+          {text:"Use CLAUDE.md and tools to string it together",score:3},
+          {text:"I've got skills and hooks that handle multi-step stuff already",score:4}
+        ]},
+      { question:"Be honest: what's your CLAUDE.md situation?",
+        options:[
+          {text:"My what now?",score:1},
+          {text:"I know it's a thing but I haven't touched it",score:2},
+          {text:"I've set up project-specific instructions in there",score:3},
+          {text:"It's basically my operating system at this point",score:4}
+        ]},
+      { question:"Have you ever installed or built a custom skill?",
+        options:[
+          {text:"I don't know what those are",score:1},
+          {text:"I've heard people mention them",score:2},
+          {text:"I've installed a few that someone shared",score:3},
+          {text:"I make my own. I've got 10+ running",score:4}
+        ]},
+      { question:"How do you connect Claude Code to other tools?",
+        options:[
+          {text:"I don't, I just talk to it",score:1},
+          {text:"I have it read files and run terminal commands sometimes",score:2},
+          {text:"I've hooked it up to APIs, databases, or git workflows",score:3},
+          {text:"MCP servers, webhooks, multi-agent orchestration, the works",score:4}
+        ]},
+      { question:"Something breaks. What do you do?",
+        options:[
+          {text:"Start a new conversation",score:1},
+          {text:"Rephrase the prompt and try again",score:2},
+          {text:"Debug with the built-in tools (Read, Grep, Bash)",score:3},
+          {text:"Check the logs, trace what the agent decided, fix the skill",score:4}
+        ]},
+      { question:"How often does Claude Code do something you didn't ask for?",
+        options:[
+          {text:"Never. It waits for me to type",score:1},
+          {text:"Occasionally it'll suggest something",score:2},
+          {text:"I've set up hooks that fire on certain events",score:3},
+          {text:"All the time. Scheduled tasks, watchers, autonomous flows",score:4}
+        ]}
+    ];
+
+    /* ─── RENDER LEVEL CARDS ─── */
+    const stack = document.getElementById('levels-stack');
+    LEVELS.forEach(level => {
+      stack.innerHTML += `
+        <div class="level-card">
+          <div class="level-card-header">
+            <span class="level-tag" style="background:${level.color}18;color:${level.color}">${level.tag}</span>
+            <h3>${level.name}</h3>
+          </div>
+          <p>${level.description}</p>
+          <div class="bar-track">
+            <div class="bar-fill level-bar" style="--bar-width:${level.percent}%;width:${level.percent}%;background:${level.color}"></div>
+          </div>
+          <div class="level-unlock"><span style="color:${level.color}">try this:</span> ${level.unlock}</div>
+        </div>`;
+    });
+
+    /* ─── QUIZ LOGIC ─── */
+    let currentQ = 0;
+    let scores = [];
+
+    function scrollToQuiz() {
+      startQuiz();
+      document.getElementById('quiz-section').scrollIntoView({ behavior:'smooth' });
+    }
+
+    function startQuiz() {
+      document.getElementById('quiz-cta').classList.add('hidden');
+      document.getElementById('quiz').classList.remove('hidden');
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const q = QUESTIONS[currentQ];
+      const progress = ((currentQ + 1) / QUESTIONS.length) * 100;
+      document.getElementById('quiz-counter').textContent = `Question ${currentQ+1}/${QUESTIONS.length}`;
+      document.getElementById('quiz-percent').textContent = `${Math.round(progress)}%`;
+      document.getElementById('quiz-bar').style.width = `${progress}%`;
+      document.getElementById('quiz-question').textContent = q.question;
+
+      const opts = document.getElementById('quiz-options');
+      opts.innerHTML = '';
+      q.options.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-option';
+        btn.innerHTML = `<span class="option-letter">${String.fromCharCode(65+i)}.</span>${opt.text}`;
+        btn.onclick = () => handleAnswer(opt.score);
+        opts.appendChild(btn);
+      });
+    }
+
+    function handleAnswer(score) {
+      scores.push(score);
+      if (currentQ < QUESTIONS.length - 1) {
+        currentQ++;
+        renderQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function getLevel(totalScore) {
+      const avg = totalScore / QUESTIONS.length;
+      if (avg <= 1.3) return LEVELS[0];
+      if (avg <= 2.0) return LEVELS[1];
+      if (avg <= 2.8) return LEVELS[2];
+      if (avg <= 3.5) return LEVELS[3];
+      return LEVELS[4];
+    }
+
+    function showResult() {
+      const total = scores.reduce((a,b) => a+b, 0);
+      const level = getLevel(total);
+      const idx = LEVELS.findIndex(l => l.id === level.id);
+      const nextLevel = idx < LEVELS.length - 1 ? LEVELS[idx + 1] : null;
+
+      document.getElementById('quiz').classList.add('hidden');
+      const el = document.getElementById('result');
+      el.classList.remove('hidden');
+
+      let pathHTML = '';
+      LEVELS.forEach((l, i) => {
+        const active = i <= idx;
+        pathHTML += `
+          <div class="path-row">
+            <span class="path-tag" style="color:${active ? l.color : '#d0ccc8'}">${l.tag}</span>
+            <div class="path-bar">
+              <div class="path-bar-fill" style="width:${active?'100%':'0%'};background:${l.color}"></div>
+            </div>
+            <span class="path-name" style="color:${active ? l.color : '#d0ccc8'}">${l.name}</span>
+            ${i === idx ? '<span class="path-you">you\'re here</span>' : ''}
+          </div>`;
+      });
+
+      const emailHeading = nextLevel
+        ? `Get your weekly nudge toward ${nextLevel.name}`
+        : `You're at the top. Help us figure out what's next`;
+
+      el.innerHTML = `
+        <div class="result-header">
+          <div class="result-label">Here's where you landed:</div>
+          <div class="result-badge" style="border:1px solid ${level.color}40;background:${level.color}0a">
+            <span class="tag" style="background:${level.color}18;color:${level.color}">${level.tag}</span>
+            <span class="name">${level.name}</span>
+          </div>
+          <p class="result-desc">${level.description}</p>
+        </div>
+        <div class="result-path">
+          <h4>The whole map</h4>
+          ${pathHTML}
+        </div>
+        <div class="email-capture" id="email-capture">
+          <h4>${emailHeading}</h4>
+          <p>Once a week, you'll get one use case matched to your level, one skill to try, and a small challenge. Takes maybe 20 minutes. That's the whole thing.</p>
+          <form class="email-form" onsubmit="handleEmailSubmit(event)">
+            <input type="email" required placeholder="your@email.com" class="email-input" id="email-input">
+            <button type="submit" class="email-submit">Count me in</button>
+          </form>
+        </div>
+        <button class="retake" onclick="location.reload()">take it again</button>`;
+    }
+
+    function handleEmailSubmit(e) {
+      e.preventDefault();
+      const capture = document.getElementById('email-capture');
+      capture.innerHTML = `
+        <div class="email-success">
+          <div class="check">+1</div>
+          <p>You're in. Welcome.</p>
+          <p>First email lands soon. One use case, one skill, one challenge.</p>
+        </div>`;
+    }
+  </script>
+</body>
+</html>
