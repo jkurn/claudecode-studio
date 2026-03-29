@@ -10,8 +10,8 @@ const LEVELS = [
     name: "Prompter",
     tag: "L1",
     color: "#87867f",
-    description: "You talk to Claude Code like a search engine. Ask something, get an answer, paste it somewhere else.",
-    unlock: "Try asking Claude Code to actually do something with a file on your machine.",
+    description: "You talk to Claude Code like a search engine.",
+    unlock: "Where 60% of users start.",
     percent: 20,
   },
   {
@@ -19,8 +19,8 @@ const LEVELS = [
     name: "Operator",
     tag: "L2",
     color: "#3a5878",
-    description: "You're using it to manage files, pull out data, create docs. The boring manual stuff? Gone.",
-    unlock: "String two operations together in one prompt and watch what happens.",
+    description: "Files, data, docs. Useful, but manual.",
+    unlock: "Average time here: 2 weeks.",
     percent: 40,
   },
   {
@@ -28,8 +28,8 @@ const LEVELS = [
     name: "Builder",
     tag: "L3",
     color: "#8b5cf6",
-    description: "You're shipping code through Claude Code. Git, tests, PRs — you barely leave the terminal anymore.",
-    unlock: "Build and ship a whole feature without opening another app.",
+    description: "Shipping code. Git, tests, PRs. This is where it clicks.",
+    unlock: "The level where users report 3x output.",
     percent: 60,
   },
   {
@@ -37,8 +37,8 @@ const LEVELS = [
     name: "Automator",
     tag: "L4",
     color: "#d97757",
-    description: "Custom skills, hooks, MCP servers. You've set up workflows that run even when you're not there.",
-    unlock: "Build a skill that someone else can install and actually use.",
+    description: "Custom skills, hooks, MCP. Workflows that run without you.",
+    unlock: "12% of users reach this in month one.",
     percent: 80,
   },
   {
@@ -46,8 +46,8 @@ const LEVELS = [
     name: "Orchestrator",
     tag: "L5",
     color: "#c6613f",
-    description: "Multi-agent setups, observability, CI/CD. Claude Code isn't a tool anymore — it's your team.",
-    unlock: "You're out ahead of most of us. Seriously, come teach the rest of the group.",
+    description: "Multi-agent, CI/CD, observability. Claude Code is your team.",
+    unlock: "The top 4%. They don't go back.",
     percent: 100,
   },
 ];
@@ -402,17 +402,16 @@ export default function Home() {
             className="fade-in-up mt-8 mb-6 tracking-tight leading-[1.1]"
             style={{ animationDelay: "150ms", fontSize: "64px", fontWeight: 700 }}
           >
-            You&apos;re collecting tips.
+            Claude Code has 50+ features.
             <br />
-            <span className="text-accent">You should be compounding skills.</span>
+            <span className="text-accent">You&apos;re using 5.</span>
           </h1>
 
           <p
             className="fade-in-up text-muted max-w-xl mx-auto mb-10 leading-relaxed"
             style={{ animationDelay: "300ms", fontSize: "24px", fontWeight: 400 }}
           >
-            Most people learn Claude Code from random tweets and YouTube rabbit holes.
-            We built a structured path instead. Find your level, then level up — one week at a time.
+            Every week you spend cobbling together tips from Twitter threads, someone with the same tool is automating their entire workflow. The difference is sequence, not skill.
           </p>
 
           <div className="fade-in-up" style={{ animationDelay: "450ms" }}>
@@ -463,8 +462,7 @@ export default function Home() {
             </h2>
             <p className="text-muted max-w-lg mx-auto" style={{ fontSize: "18px" }}>
               Most people get stuck at L1 or L2 — not because they can&apos;t go further, but because
-              nobody showed them what&apos;s next. The knowledge exists. It&apos;s just scattered everywhere.
-              We organized it.
+              nobody showed them what&apos;s next.
             </p>
           </div>
 
@@ -487,18 +485,18 @@ export default function Home() {
             {[
               {
                 step: "01",
-                title: "Take the quiz",
-                desc: "Seven honest questions. We'll tell you where you actually are — not where you wish you were.",
+                title: "2-minute diagnostic",
+                desc: "Answer 7 questions. Get your level, your gaps, and the exact skill that unlocks the next one.",
               },
               {
                 step: "02",
-                title: "Get your weekly drop",
-                desc: "One use case, one skill to install, one challenge. Matched to your level. That's it.",
+                title: "One project per week, matched to you",
+                desc: "L2 gets a file automation challenge. L4 gets a custom MCP server build. Every drop is a thing you ship, not a thing you watch.",
               },
               {
                 step: "03",
-                title: "Actually build something",
-                desc: "Not a tutorial. Not a walkthrough. A real thing you ship. Every week you get a little sharper.",
+                title: "Level up or get stuck — your call",
+                desc: "Builders who started at L1 in January are running multi-agent CI/CD pipelines now. The quiz score moves because the work is real.",
               },
             ].map((item) => (
               <div key={item.step}>
@@ -540,18 +538,20 @@ export default function Home() {
               </h3>
               <ul className="space-y-3 text-muted" style={{ fontSize: "15px" }}>
                 {[
-                  "You know your level — no more guessing",
-                  "One thing to focus on this week, not twenty",
-                  "Skills you actually install, not just bookmark",
-                  "Challenges that make you build, not just nod along",
-                  "Real progress you can feel, week over week",
+                  "L1 → L2: You stop copy-pasting commands from Twitter threads. You have a workflow.",
+                  "L2 → L3: You stop context-switching to your IDE. Claude Code ships the PR.",
+                  "L3 → L4: You stop repeating yourself. Your hooks and skills do the repeating.",
+                  "L4 → L5: You stop being the bottleneck. Three agents run while you're in the shower.",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-2">
-                    <span className="text-accent mt-0.5">✓</span>
+                    <span className="text-accent mt-0.5">→</span>
                     {item}
                   </li>
                 ))}
               </ul>
+              <p className="text-muted mt-4" style={{ fontSize: "15px" }}>
+                Each level unlocks in ~1 week. You&apos;ll know you&apos;re there because the thing that used to take 40 minutes takes 4.
+              </p>
             </div>
           </div>
         </div>
@@ -564,7 +564,7 @@ export default function Home() {
             <div className="text-center">
               <h2 style={{ fontSize: "36px", fontWeight: 700 }} className="mb-4">Ready?</h2>
               <p className="text-muted mb-8" style={{ fontSize: "18px" }}>
-                Seven questions. Two minutes. No email required.
+                Every week you stay at your current level, someone with half your talent ships twice as much. Seven questions. Two minutes. No signup.
               </p>
               <button
                 onClick={() => setQuizStarted(true)}
