@@ -583,6 +583,50 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── RECOMMENDED READING ─── */}
+      <section className="px-6 py-20 border-t border-border/40">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 style={{ fontSize: "36px", fontWeight: 700 }} className="mb-4">
+              While you&apos;re here
+            </h2>
+            <p className="text-muted max-w-lg mx-auto" style={{ fontSize: "18px" }}>
+              A curated list of 15 free guides covering Claude, Claude Code, Skills, and
+              more — worth the bookmark.
+            </p>
+          </div>
+
+          <a
+            href="https://x.com/i/status/2045381817294008383"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block border border-border/60 rounded-xl p-6 bg-white
+                       hover:border-accent/40 hover:bg-surface-hover transition-all duration-200"
+          >
+            <div className="flex items-start gap-3 mb-4">
+              <span className="font-mono text-xs font-bold px-2.5 py-1 rounded-md bg-accent/10 text-accent">
+                𝕏
+              </span>
+              <div className="flex-1">
+                <div className="font-mono text-xs text-muted mb-1">via @rubenhssd on X</div>
+                <div className="font-semibold">
+                  Stop bookmarking 50 guides you&apos;ll never read.
+                </div>
+              </div>
+            </div>
+            <p className="text-muted text-[15px] leading-relaxed mb-4">
+              15 free guides to skip the noise — including{" "}
+              <span className="font-mono text-accent">claudecode.free</span> for Claude Code,{" "}
+              <span className="font-mono text-accent">claude-skills.free</span> for Skills, and{" "}
+              <span className="font-mono text-accent">claude-co.work</span> for Cowork setup.
+            </p>
+            <div className="font-mono text-xs text-accent">
+              Read the thread →
+            </div>
+          </a>
+        </div>
+      </section>
+
       {/* ─── FOOTER ─── */}
       <footer className="px-6 py-8 border-t border-border/40">
         <div className="max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted">
