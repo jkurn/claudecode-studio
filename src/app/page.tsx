@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { FRAMEWORKS, HARNESS_LAYERS } from "@/data/insights";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -239,6 +239,8 @@ function Quiz({ onComplete }: { onComplete: (level: (typeof LEVELS)[number]) => 
   const [current, setCurrent] = useState(0);
   const [scores, setScores] = useState<number[]>([]);
 
+  const q = QUESTIONS[current];
+
   const handleAnswer = (score: number) => {
     const newScores = [...scores, score];
     setScores(newScores);
@@ -251,7 +253,30 @@ function Quiz({ onComplete }: { onComplete: (level: (typeof LEVELS)[number]) => 
     }
   };
 
-  const q = QUESTIONS[current];
+  // Keyboard nav: A/B/C/D or 1-4 picks an option; Backspace steps back.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const key = e.key.toLowerCase();
+      const letter = "abcd".indexOf(key);
+      const digit = "1234".indexOf(key);
+      const idx = letter >= 0 ? letter : digit;
+      if (idx >= 0 && idx < q.options.length) {
+        e.preventDefault();
+        handleAnswer(q.options[idx].score);
+        return;
+      }
+      if (e.key === "Backspace" && current > 0) {
+        e.preventDefault();
+        setCurrent((c) => Math.max(0, c - 1));
+        setScores((s) => s.slice(0, -1));
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [current, q]);
+
   const progress = ((current + 1) / QUESTIONS.length) * 100;
 
   return (
@@ -269,6 +294,9 @@ function Quiz({ onComplete }: { onComplete: (level: (typeof LEVELS)[number]) => 
             className="h-full bg-accent rounded-full progress-bar transition-all duration-300"
             style={{ width: `${progress}%` }}
           />
+        </div>
+        <div className="mt-2 font-mono text-[11px] text-muted/70 text-right">
+          press A–D or 1–4 · backspace to go back
         </div>
       </div>
 
@@ -301,14 +329,35 @@ function Quiz({ onComplete }: { onComplete: (level: (typeof LEVELS)[number]) => 
 
 /* ─────────────────────── RESULT ─────────────────────── */
 
-function Result({ level }: { level: (typeof LEVELS)[number] }) {
+function Result({
+  level,
+  onRetake,
+}: {
+  level: (typeof LEVELS)[number];
+  onRetake: () => void;
+}) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // TODO: Connect to email service (ConvertKit/Buttondown/Resend)
     setSubmitted(true);
+  };
+
+  const handleShare = async () => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("level", level.tag);
+    const shareUrl = url.toString();
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Older browsers: fall back to showing the URL in a prompt.
+      window.prompt("Copy your shareable URL:", shareUrl);
+    }
   };
 
   const currentIndex = LEVELS.findIndex((l) => l.id === level.id);
@@ -415,11 +464,18 @@ function Result({ level }: { level: (typeof LEVELS)[number] }) {
         )}
       </div>
 
-      {/* Retake */}
-      <div className="text-center mt-6">
+      {/* Share + retake */}
+      <div className="flex items-center justify-center gap-6 mt-6 text-xs font-mono text-muted">
         <button
-          onClick={() => window.location.reload()}
-          className="text-muted text-xs font-mono hover:text-accent transition-colors cursor-pointer"
+          onClick={handleShare}
+          className="hover:text-accent transition-colors cursor-pointer"
+        >
+          {copied ? "✓ copied" : "↗ share your level"}
+        </button>
+        <span className="w-px h-3 bg-border/40" />
+        <button
+          onClick={onRetake}
+          className="hover:text-accent transition-colors cursor-pointer"
         >
           ← take it again
         </button>
@@ -430,16 +486,58 @@ function Result({ level }: { level: (typeof LEVELS)[number] }) {
 
 /* ─────────────────────── MAIN PAGE ─────────────────────── */
 
+const STORAGE_KEY = "claudecode-studio:level";
+
+function levelByTag(tag: string) {
+  return LEVELS.find((l) => l.tag === tag);
+}
+
 export default function Home() {
   const [quizStarted, setQuizStarted] = useState(false);
   const [result, setResult] = useState<(typeof LEVELS)[number] | null>(null);
   const quizRef = useRef<HTMLDivElement>(null);
+
+  // Rehydrate from ?level=Lx OR localStorage. This is a mount-only
+  // hydration effect from browser APIs; one of the canonical legitimate
+  // uses of setState-in-effect.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const fromUrl = params.get("level");
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    const tag = fromUrl ?? stored;
+    if (tag) {
+      const lvl = levelByTag(tag);
+      if (lvl) {
+        /* eslint-disable-next-line react-hooks/set-state-in-effect */
+        setResult(lvl);
+        setQuizStarted(true);
+      }
+    }
+  }, []);
+
+  // Persist on change.
+  useEffect(() => {
+    if (result) {
+      window.localStorage.setItem(STORAGE_KEY, result.tag);
+      const url = new URL(window.location.href);
+      url.searchParams.set("level", result.tag);
+      window.history.replaceState(null, "", url.toString());
+    }
+  }, [result]);
 
   const scrollToQuiz = () => {
     setQuizStarted(true);
     setTimeout(() => {
       quizRef.current?.scrollIntoView({ behavior: "smooth" });
     }, 100);
+  };
+
+  const handleRetake = () => {
+    window.localStorage.removeItem(STORAGE_KEY);
+    const url = new URL(window.location.href);
+    url.searchParams.delete("level");
+    window.history.replaceState(null, "", url.toString());
+    window.location.reload();
   };
 
   return (
@@ -773,7 +871,7 @@ export default function Home() {
               </button>
             </div>
           ) : result ? (
-            <Result level={result} />
+            <Result level={result} onRetake={handleRetake} />
           ) : (
             <Quiz onComplete={setResult} />
           )}
