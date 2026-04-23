@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function AutonomyPage() {
   return (
-    <main className="min-h-screen">
+    <main id="main" className="min-h-screen">
       <section className="px-6 pt-16 pb-10 border-b border-border/40">
         <div className="max-w-3xl mx-auto">
           <nav className="font-mono text-xs text-muted mb-10">
@@ -73,7 +73,7 @@ export default function AutonomyPage() {
             {TRACKS.map((t) => (
               <div
                 key={t.id}
-                className="border border-border/60 rounded-xl p-6 bg-white"
+                className="border border-border/60 rounded-xl p-6 bg-[var(--card)]"
               >
                 <h3
                   className="font-semibold mb-3"
@@ -124,7 +124,7 @@ export default function AutonomyPage() {
             {AUTONOMY_LEVELS.map((lvl) => (
               <div
                 key={lvl.id}
-                className="border border-border/60 rounded-xl p-6 bg-white"
+                className="border border-border/60 rounded-xl p-6 bg-[var(--card)]"
               >
                 <div className="flex items-baseline gap-3 mb-3">
                   <span className="font-mono text-xs font-bold px-2.5 py-1 rounded-md bg-accent/10 text-accent">
@@ -230,7 +230,7 @@ export default function AutonomyPage() {
                 className={`border rounded-xl p-5 ${
                   r.inScope
                     ? "border-accent/30 bg-accent/5"
-                    : "border-border/40 bg-white"
+                    : "border-border/40 bg-[var(--card)]"
                 }`}
               >
                 <div className="flex items-baseline gap-3 mb-2">

@@ -31,7 +31,7 @@ export default function SpeakersPage() {
   ];
 
   return (
-    <main className="min-h-screen">
+    <main id="main" className="min-h-screen">
       <section className="px-6 pt-16 pb-10 border-b border-border/40">
         <div className="max-w-3xl mx-auto">
           <nav className="font-mono text-xs text-muted mb-10">
@@ -68,7 +68,7 @@ export default function SpeakersPage() {
             return (
               <div
                 key={key}
-                className="border border-border/60 rounded-xl p-6 bg-white"
+                className="border border-border/60 rounded-xl p-6 bg-[var(--card)]"
               >
                 <div className="flex items-baseline gap-3 mb-3">
                   <span className="font-mono text-xs text-muted">

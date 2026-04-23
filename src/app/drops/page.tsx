@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function DropsIndexPage() {
   return (
-    <main className="min-h-screen">
+    <main id="main" className="min-h-screen">
       <section className="px-6 pt-16 pb-10 border-b border-border/40">
         <div className="max-w-3xl mx-auto">
           <nav className="font-mono text-xs text-muted mb-10">
@@ -53,7 +53,7 @@ export default function DropsIndexPage() {
             <Link
               key={d.slug}
               href={`/drops/${d.slug}`}
-              className="block border border-border/60 rounded-xl p-6 bg-white hover:border-accent/50 hover:bg-surface-hover transition-all"
+              className="block border border-border/60 rounded-xl p-6 bg-[var(--card)] hover:border-accent/50 hover:bg-surface-hover transition-all"
             >
               <div className="flex items-center gap-3 mb-3">
                 <span className="font-mono text-xs text-muted">

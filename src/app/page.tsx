@@ -149,7 +149,7 @@ function LevelCard({
 }) {
   return (
     <div
-      className="border border-border/60 rounded-xl p-6 transition-all duration-300 hover:border-accent/40 hover:bg-surface-hover bg-white"
+      className="border border-border/60 rounded-xl p-6 transition-all duration-300 hover:border-accent/40 hover:bg-surface-hover bg-[var(--card)]"
     >
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-3">
@@ -216,16 +216,22 @@ function AdoptionDotGrid() {
     >
       {Array.from({ length: total }).map((_, i) => {
         const isBuilder = builderIdx.has(i);
+        const targetOpacity = isBuilder ? 1 : 0.4;
+        // Stagger across ~1.2s total; rows light up roughly left-to-right.
+        const delayMs = Math.min(1200, (i % cols) * 6 + Math.floor(i / cols) * 30);
         return (
           <span
             key={i}
-            className="block rounded-full"
-            style={{
-              width: "10px",
-              height: "10px",
-              backgroundColor: isBuilder ? "var(--accent)" : "var(--border)",
-              opacity: isBuilder ? 1 : 0.4,
-            }}
+            className="block rounded-full adoption-dot"
+            style={
+              {
+                width: "10px",
+                height: "10px",
+                backgroundColor: isBuilder ? "var(--accent)" : "var(--border)",
+                ["--target-opacity"]: targetOpacity,
+                animationDelay: `${delayMs}ms`,
+              } as React.CSSProperties
+            }
           />
         );
       })}
@@ -311,7 +317,7 @@ function Quiz({ onComplete }: { onComplete: (level: (typeof LEVELS)[number]) => 
           <button
             key={`${current}-${i}`}
             onClick={() => handleAnswer(opt.score)}
-            className="fade-in-up w-full text-left p-4 border border-border/60 rounded-xl bg-white
+            className="fade-in-up w-full text-left p-4 border border-border/60 rounded-xl bg-[var(--card)]
                        hover:border-accent/60 hover:bg-surface-hover transition-all duration-200
                        font-mono text-sm group cursor-pointer"
             style={{ animationDelay: `${i * 80}ms` }}
@@ -368,7 +374,7 @@ function Result({
       <div className="text-center mb-10">
         <div className="font-mono text-sm text-muted mb-4">Your Claude Code fluency level:</div>
         <div
-          className="inline-flex items-center gap-3 px-6 py-3 rounded-xl border mb-4 bg-white"
+          className="inline-flex items-center gap-3 px-6 py-3 rounded-xl border mb-4 bg-[var(--card)]"
           style={{
             borderColor: level.color,
             backgroundColor: `${level.color}08`,
@@ -386,7 +392,7 @@ function Result({
       </div>
 
       {/* What's next */}
-      <div className="border border-border/60 rounded-xl p-6 mb-8 bg-white">
+      <div className="border border-border/60 rounded-xl p-6 mb-8 bg-[var(--card)]">
         <h4 className="font-semibold mb-4 text-xs uppercase tracking-wider text-muted font-mono">
           Your path forward
         </h4>
@@ -448,7 +454,7 @@ function Result({
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
-                className="flex-1 bg-white border border-border/60 rounded-xl px-4 py-2.5
+                className="flex-1 bg-[var(--card)] border border-border/60 rounded-xl px-4 py-2.5
                            text-sm font-mono placeholder:text-muted/50
                            focus:outline-none focus:border-accent/60 transition-colors"
               />
@@ -541,7 +547,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen">
+    <main id="main" className="min-h-screen">
       {/* ─── HERO ─── */}
       <section className="relative px-6 pt-24 pb-28 overflow-hidden">
         <div className="relative max-w-3xl mx-auto text-center">
@@ -677,7 +683,7 @@ export default function Home() {
             {HARNESS_LAYERS.map((layer) => (
               <div
                 key={layer.id}
-                className="border border-border/60 rounded-xl p-6 bg-white"
+                className="border border-border/60 rounded-xl p-6 bg-[var(--card)]"
               >
                 <div className="flex items-baseline gap-3 mb-3">
                   <span
@@ -821,7 +827,7 @@ export default function Home() {
               <Link
                 key={f.slug}
                 href={`/insights/${f.slug}`}
-                className="block border border-border/60 rounded-xl p-6 bg-white hover:border-accent/50 hover:bg-surface-hover transition-all"
+                className="block border border-border/60 rounded-xl p-6 bg-[var(--card)] hover:border-accent/50 hover:bg-surface-hover transition-all"
               >
                 <div className="flex items-center gap-2 mb-3">
                   {f.levels.map((lvl) => (

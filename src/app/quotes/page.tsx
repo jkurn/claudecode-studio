@@ -24,7 +24,7 @@ export default function QuotesPage() {
   }, {});
 
   return (
-    <main className="min-h-screen">
+    <main id="main" className="min-h-screen">
       <section className="px-6 pt-16 pb-10 border-b border-border/40">
         <div className="max-w-3xl mx-auto">
           <nav className="font-mono text-xs text-muted mb-10">

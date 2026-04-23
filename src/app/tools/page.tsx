@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function ToolsPage() {
   return (
-    <main className="min-h-screen">
+    <main id="main" className="min-h-screen">
       <section className="px-6 pt-16 pb-10 border-b border-border/40">
         <div className="max-w-3xl mx-auto">
           <nav className="font-mono text-xs text-muted mb-10">
@@ -63,7 +63,7 @@ export default function ToolsPage() {
                 {cat.items.map((t) => (
                   <div
                     key={t.name}
-                    className="border border-border/60 rounded-xl p-5 bg-white"
+                    className="border border-border/60 rounded-xl p-5 bg-[var(--card)]"
                   >
                     <div className="flex items-baseline justify-between gap-4 mb-2">
                       <div className="font-semibold text-[16px]">{t.name}</div>

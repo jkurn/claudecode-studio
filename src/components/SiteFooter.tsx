@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ThemeToggle } from "./ThemeToggle";
 
 const LINKS = [
   { href: "/", label: "home" },
@@ -30,9 +31,12 @@ export function SiteFooter() {
             ))}
           </nav>
         </div>
-        <div className="text-center sm:text-left">
-          Made by someone who spent way too many late nights learning Claude
-          Code — so you can skip the hard part.
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="text-center sm:text-left max-w-md">
+            Made by someone who spent way too many late nights learning Claude
+            Code — so you can skip the hard part.
+          </div>
+          <ThemeToggle />
         </div>
       </div>
     </footer>

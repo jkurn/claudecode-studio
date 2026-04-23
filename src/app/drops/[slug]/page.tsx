@@ -55,7 +55,7 @@ export default async function DropPage({ params }: Props) {
   };
 
   return (
-    <main className="min-h-screen">
+    <main id="main" className="min-h-screen">
       <JsonLd data={ld} />
       <section className="px-6 pt-16 pb-10 border-b border-border/40">
         <div className="max-w-2xl mx-auto">
@@ -118,7 +118,7 @@ export default async function DropPage({ params }: Props) {
               {drop.skill}
             </p>
             {drop.skillSnippet && (
-              <pre className="mt-4 border border-border/60 rounded-xl p-5 bg-white overflow-x-auto text-[13px] leading-relaxed font-mono whitespace-pre">
+              <pre className="mt-4 border border-border/60 rounded-xl p-5 bg-[var(--card)] overflow-x-auto text-[13px] leading-relaxed font-mono whitespace-pre">
                 {drop.skillSnippet}
               </pre>
             )}
@@ -143,7 +143,7 @@ export default async function DropPage({ params }: Props) {
           {prev ? (
             <Link
               href={`/drops/${prev.slug}`}
-              className="block border border-border/60 rounded-xl p-4 bg-white hover:border-accent/50 hover:bg-surface-hover transition-all"
+              className="block border border-border/60 rounded-xl p-4 bg-[var(--card)] hover:border-accent/50 hover:bg-surface-hover transition-all"
             >
               <div className="font-mono text-xs text-muted mb-1">← previous</div>
               <div className="font-semibold text-[15px]">{prev.title}</div>
@@ -154,7 +154,7 @@ export default async function DropPage({ params }: Props) {
           {next ? (
             <Link
               href={`/drops/${next.slug}`}
-              className="block border border-border/60 rounded-xl p-4 bg-white hover:border-accent/50 hover:bg-surface-hover transition-all sm:text-right"
+              className="block border border-border/60 rounded-xl p-4 bg-[var(--card)] hover:border-accent/50 hover:bg-surface-hover transition-all sm:text-right"
             >
               <div className="font-mono text-xs text-muted mb-1">next →</div>
               <div className="font-semibold text-[15px]">{next.title}</div>
