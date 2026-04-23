@@ -6,7 +6,7 @@ At L5, deploys are a loop, not an event.
 
 ## Why this matters now
 
-Aiden Morgan's three-loop model treats deployment as a feedback
+Aidan Morgan's three-loop model treats deployment as a feedback
 channel, not a finish line:
 
 - Canary / blue-green rollouts.
@@ -56,4 +56,4 @@ synthetic failure opened. One line on what you'll add next week.
 
 ## Source
 
-Aiden Morgan, frameworks/three-loop-delivery.md (outer loop).
+Aidan Morgan, frameworks/three-loop-delivery.md (outer loop).

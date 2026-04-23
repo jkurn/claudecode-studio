@@ -13,7 +13,7 @@
 | 2 | Mark Monfort   | Sydney      | Chief AI & Innovation Officer, Madison Marcus   | Legal Claw — agentic systems for law           |
 | 3 | Stephen Coleman| Melbourne   | Founder, Stratum (AI advisory)                  | The harness is where the value is              |
 | 4 | Nick Lotheian  | Adelaide    | Staff engineer                                  | Ghost libraries                                 |
-| 5 | Aiden Morgan   | Perth       | Serial startup CTO                              | Engineer the systems that engineer your systems |
+| 5 | Aidan Morgan   | Perth       | Serial startup CTO                              | Engineer the systems that engineer your systems |
 | 6 | Buan Zich      | Brisbane/Syd | Director, B2 AI (AI modernisation)             | Kanban-driven development                       |
 | 7 | Adam Halt      | New Zealand | Claude Ambassador NZ, The Collab community lead | Cyclone tracker case study                      |
 
@@ -65,7 +65,7 @@ the UI.
 Signal: Salesforce announced headless CRM. If Salesforce deprecates its
 front end, the category shifts.
 
-### 1.3 Three-loop agentic delivery (Aiden Morgan)
+### 1.3 Three-loop agentic delivery (Aidan Morgan)
 
 Engineer the systems that engineer your systems.
 
@@ -151,7 +151,7 @@ These didn't get their own frameworks but are worth keeping.
   consulting pitch is "stop building dashboards, build MCP-accessible
   data layers."
 
-- **Vibe code the tools, not the product.** Aiden's point: when a linter,
+- **Vibe code the tools, not the product.** Aidan's point: when a linter,
   CI check, or metrics dashboard you need doesn't exist, the highest-ROI
   use of vibe coding is to build that tool first, then use it.
 
@@ -208,8 +208,8 @@ Full annotated list in `tools.md`. Short version:
   Claude Design (web app), Cursor, Antigravity (Google), Bolt, Lovable.
 - **MCP servers:** Figma MCP (read-only at time of talk), PowerPoint
   MCP, GitHub MCP, Linear MCP.
-- **Deterministic code checkers (Aiden's list):** ast-grep (asg),
-  Semgrep, Radon, Pyflakes, Cohesion, Cognitive Complexity (wily /
+- **Deterministic code checkers (Aidan's list):** ast-grep (asg),
+  Semgrep, Radon, pyscn, Cohesion, Cognitive Complexity (wily /
   complexipy), Import-linter.
 - **Boards / PM:** Jira, Asana, Linear, Shortcut; Klein/Kline (local
   Kanban that wraps Linear MCP).
@@ -227,10 +227,10 @@ Full quote bank in `quotes.md`. Top five:
 
 > "AI doesn't fail loudly, it fails convincingly." — Mark Monfort
 
-> "We need to engineer the systems that engineer our systems." — Aiden Morgan
+> "We need to engineer the systems that engineer our systems." — Aidan Morgan
 
 > "Using non-deterministic systems to evaluate non-deterministic output is
-> the mathematical definition of chaos." — Aiden Morgan
+> the mathematical definition of chaos." — Aidan Morgan
 
 > "Stateless agents with stateful tickets always beat one long-running
 > session." — Buan Zich
@@ -248,8 +248,8 @@ Cross-references to the existing L1–L5 framework in `src/app/page.tsx`:
 | L1 Prompter     | Vanessa's onramp: Lovable → Cursor → Claude Code terminal. |
 | L2 Operator     | Ask Claude to explain an unfamiliar codebase. Build your `name.md`. |
 | L3 Builder      | Mark's "break big prompts into subtasks + MD guardrails." |
-| L4 Automator    | Aiden's middle loop: ast-grep/semgrep rules, hooks, complexity metrics. |
-| L5 Orchestrator | Buan's kanban-driven dev; Aiden's outer loop; Adam's tiered models.  |
+| L4 Automator    | Aidan's middle loop: ast-grep/semgrep rules, hooks, complexity metrics. |
+| L5 Orchestrator | Buan's kanban-driven dev; Aidan's outer loop; Adam's tiered models.  |
 
 See `newsletter-drops/` for a drop outline per level.
 

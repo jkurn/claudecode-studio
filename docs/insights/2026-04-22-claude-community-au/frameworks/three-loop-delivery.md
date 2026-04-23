@@ -1,18 +1,23 @@
 # Three-loop agentic delivery
 
-Owner: Aiden Morgan
-Context: serial startup CTO, Perth
+Owner: Aidan Morgan (Bankwest & AITAI, April 2026)
+Talk title: "Stop building software like it's April 2026"
 
 ## The claim
 
 "Engineer the systems that engineer your systems." Producing code
 faster is not useful if requirements gathering and deployment are still
 slow. Don't optimise the middle of the value stream; re-engineer the
-whole thing around three nested feedback loops.
+whole thing around three nested feedback loops. He formally calls the
+approach **Fitness Function Driven Development (FFDD)**.
 
 ## The loops
 
-### Inner loop — coding
+(Names as they appear on Aidan's slides.)
+
+### Coding loop
+
+"Create code that looks like it works as quickly as possible."
 
 - LLM writes code.
 - LLM runs tests.
@@ -23,8 +28,9 @@ Rule: if the agent goes off the rails, *don't intervene mid-loop*. Stop
 the loop, fix the guardrails (`CLAUDE.md`, skills, hooks, MCP configs),
 and restart.
 
-### Middle loop — back pressure
+### Backpressure loop
 
+"Create backpressure quickly to force the LLM on the correct path."
 Signals that tell the LLM it's wrong. Two phases, strict order:
 
 1. **Deterministic phase.** Linters, static analysis, complexity
@@ -32,19 +38,22 @@ Signals that tell the LLM it's wrong. Two phases, strict order:
 2. **Non-deterministic phase.** LLM adversarial review — another agent
    critiques the first agent's output.
 
-Output is binary. Pass or fail. Any fail feeds back into the inner
+Output is binary. Pass or fail. Any fail feeds back into the coding
 loop. Nuance is not allowed in this signal; the LLM gets confused
-trying to interpret complex critique.
+trying to interpret complex critique. Backpressure must not come from
+human input — humans are too slow.
 
-### Outer loop — deploy / production
+### Experimental deployment loop
 
-- Canary / blue-green deploys.
+"Invest in antifragility; detect problems and revert quickly, returning
+to the coding loop." Aidan's checklist for what lives in this loop:
+
+- Ephemeral environments.
+- Blue/green and canary deployments.
 - Synthetic traffic.
-- Observability.
-- Auto-rollback.
-
-Detect problems before users see them; failures feed back into the
-coding loop.
+- XmR control charts to identify deviations.
+- SLOs and SLIs with burn rates.
+- Feature flags, circuit breakers, bulkheads.
 
 ## Why the order matters
 
@@ -65,7 +74,7 @@ Adopt at least two of these and wire them into the middle loop:
 | `ast-grep` (asg)| Syntax-tree pattern matching. YAML rules.          |
 | `semgrep`       | Semantic code analysis. YAML rules.                |
 | `radon`         | Python maintainability / cyclomatic complexity.    |
-| `pyflakes`      | Python static analysis / best practices.           |
+| `pyscn`      | Python static analysis / best practices.           |
 | `cohesion`      | Module coupling / cohesion measurement.            |
 | `complexipy`    | Cognitive-complexity scoring.                      |
 | `import-linter` | Architectural layer enforcement (catches drift).   |

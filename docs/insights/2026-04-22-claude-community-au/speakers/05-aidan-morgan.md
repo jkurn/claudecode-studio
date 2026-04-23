@@ -1,34 +1,51 @@
-# Aiden Morgan — Engineer the systems that engineer your systems
+# Aidan Morgan — Engineer the systems that engineer your systems
 
 ## Who
 
 - Based in Perth.
 - Software engineer; multi-time startup CTO.
+- Slide deck is billed as Bankwest & AITAI (April 2026). Talk title:
+  "Stop building software like it's April 2026 — experiments building
+  complex systems with agentic engineering teams (not at a bank!)."
 
 ## The talk
 
 Most technically dense talk of the night. Central claim: producing code
 faster is useless if requirements gathering and deployment are still
 slow — don't optimise the middle, re-engineer the whole value stream.
+He formally frames the approach as **Fitness Function Driven
+Development (FFDD)**.
 
 ### Three loops
 
-**Inner loop (coding).** LLM generates code, runs tests, iterates. "You
-as a human — you're not needed in this loop. You're too slow." If the
-agent starts going wrong, don't poke it mid-loop; step back and fix the
-guardrails (CLAUDE.md, hooks, skills, MCPs), then restart.
+The slide deck names them precisely:
 
-**Middle loop (back pressure).** Signals that tell the LLM it's wrong.
+**Coding loop.** "Create code that looks like it works as quickly as
+possible. You aren't needed in this loop." The LLM generates code, runs
+tests, iterates. If the agent starts going wrong, don't poke it mid-
+loop; step back and fix the guardrails (CLAUDE.md, hooks, skills,
+MCPs), then restart.
+
+**Backpressure loop.** "Create backpressure quickly to force the LLM on
+the correct path." Signals that tell the LLM it's wrong.
 
 - *Deterministic phase first*: linters, static analysis, complexity
   metrics, architectural layer enforcement.
 - *Non-deterministic phase second*: LLM adversarial review.
-- Output is binary — pass/fail only. Any fail loops back to the inner
-  loop.
+- Output is binary — pass/fail only. Any fail loops back to the coding
+  loop. Backpressure cannot come from human input — humans are too
+  slow.
 
-**Outer loop (deploy/production).** Canary, blue/green, synthetic
-traffic, observability. Detect problems before users see them; rollback
-feeds back into the coding loop.
+**Experimental deployment loop.** "Invest in antifragility; detect
+problems and revert quickly, returning to the coding loop." Specific
+components from the deck:
+
+- Ephemeral environments.
+- Blue/green and canary deployments.
+- Synthetic traffic.
+- XmR control charts to identify deviations.
+- SLOs and SLIs with burn rates.
+- Feature flags, circuit breakers, bulkheads.
 
 ### Why the order matters
 
@@ -46,7 +63,7 @@ pass/fail retries cleanly.
   deterministic. Claude already knows the rule language.
 - `semgrep` — semantic code analysis, also YAML rules.
 - `radon` — Python maintainability / complexity.
-- `pyflakes` — Python static analysis / best practices.
+- `pyscn` — Python static analysis / best practices.
 - `cohesion` — module coupling / cohesion.
 - `complexipy` / `wily` — cognitive-complexity scoring.
 - `import-linter` — architectural layer enforcement (catches drift).
@@ -89,7 +106,7 @@ development applied to the build process, not just to the AI output.
 
 - The three-loop model is the most portable framework of the night.
   Worth a dedicated explainer page with a diagram.
-- Aiden's tool list is ready-made newsletter content — one tool per
+- Aidan's tool list is ready-made newsletter content — one tool per
   drop across L4 readers, each with a "install, write one rule, check
   in" challenge.
 - "Engineer the systems that engineer our systems" is a tagline-grade

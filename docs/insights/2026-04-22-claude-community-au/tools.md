@@ -24,14 +24,14 @@ it matters, and which speaker used it.
 | GitHub MCP   | Connect Claude Code to repos; interrogate code as a product person.  | Vanessa   |
 | Linear MCP   | Drives the kanban-driven-development setup.                          | Buan      |
 
-## Deterministic code checkers (Aiden's list)
+## Deterministic code checkers (Aidan's list)
 
 | Tool           | Purpose                                                   |
 |----------------|-----------------------------------------------------------|
 | `ast-grep` (asg)| Syntax-tree pattern matching. YAML rule DSL.             |
 | `semgrep`      | Semantic code analysis; YAML rules.                       |
 | `radon`        | Python maintainability / cyclomatic complexity metrics.   |
-| `pyflakes`     | Python static analysis / best practices.                  |
+| `pyscn`     | Python static analysis / best practices.                  |
 | `cohesion`     | Module coupling / cohesion measurement.                   |
 | `complexipy` / `wily` | Cognitive-complexity scoring.                      |
 | `import-linter`| Architectural layer enforcement; catches drift.           |

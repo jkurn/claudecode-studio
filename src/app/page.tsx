@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import Link from "next/link";
 import { FRAMEWORKS, HARNESS_LAYERS } from "@/data/insights";
+import { SiteFooter } from "@/components/SiteFooter";
 
 /* ─────────────────────── DATA ─────────────────────── */
 
@@ -779,31 +780,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── FOOTER ─── */}
-      <footer className="px-6 py-10 border-t border-border/40">
-        <div className="max-w-3xl mx-auto flex flex-col gap-6 text-xs text-muted">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="font-mono">
-              <span className="text-accent">claudecode</span>.studio
-            </div>
-            <nav className="flex items-center gap-5 font-mono">
-              <Link href="/" className="hover:text-accent transition-colors">
-                home
-              </Link>
-              <Link
-                href="/insights"
-                className="hover:text-accent transition-colors"
-              >
-                insights
-              </Link>
-            </nav>
-          </div>
-          <div className="text-center sm:text-left">
-            Made by someone who spent way too many late nights learning Claude
-            Code — so you can skip the hard part.
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

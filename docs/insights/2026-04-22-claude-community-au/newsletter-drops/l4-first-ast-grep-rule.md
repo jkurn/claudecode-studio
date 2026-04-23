@@ -6,7 +6,7 @@ Claude doesn't need a second opinion. It needs a deterministic one.
 
 ## Why this matters now
 
-Aiden Morgan's core rule from the webinar:
+Aidan Morgan's core rule from the webinar:
 
 > "Using non-deterministic systems to evaluate non-deterministic output
 > is actually the mathematical definition of chaos."
@@ -68,4 +68,4 @@ used to get wrong that the rule now catches.
 
 ## Source
 
-Aiden Morgan, frameworks/three-loop-delivery.md (middle loop).
+Aidan Morgan, frameworks/three-loop-delivery.md (middle loop).

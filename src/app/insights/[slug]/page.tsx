@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FRAMEWORKS, frameworkBySlug } from "@/data/insights";
+import { SiteFooter } from "@/components/SiteFooter";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -190,25 +191,7 @@ export default async function FrameworkPage({ params }: Props) {
         </div>
       </section>
 
-      {/* ─── FOOTER ─── */}
-      <footer className="px-6 py-10 border-t border-border/40">
-        <div className="max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted">
-          <div className="font-mono">
-            <span className="text-accent">claudecode</span>.studio
-          </div>
-          <nav className="flex items-center gap-5 font-mono">
-            <Link href="/" className="hover:text-accent transition-colors">
-              home
-            </Link>
-            <Link
-              href="/insights"
-              className="hover:text-accent transition-colors"
-            >
-              insights
-            </Link>
-          </nav>
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

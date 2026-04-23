@@ -34,7 +34,7 @@ in minutes instead of rewatching a two-hour talk.
 |---------------------------------|-----------------|-----------------------------------------|
 | Agents + Tools + Data triad     | Mark Monfort    | frameworks/agents-tools-data.md         |
 | The Harness thesis / Krang      | Stephen Coleman | frameworks/the-harness.md               |
-| Three-loop agentic delivery     | Aiden Morgan    | frameworks/three-loop-delivery.md       |
+| Three-loop agentic delivery     | Aidan Morgan    | frameworks/three-loop-delivery.md       |
 | Ghost libraries                 | Nick Lotheian   | frameworks/ghost-libraries.md           |
 | Kanban-driven development       | Buan Zich       | frameworks/kanban-driven-development.md |
 | Prototype-first design thinking | Vanessa Enis    | frameworks/prototype-first.md           |
@@ -48,7 +48,7 @@ in minutes instead of rewatching a two-hour talk.
 | Mark Monfort   | speakers/02-mark-monfort.md       |
 | Stephen Coleman| speakers/03-stephen-coleman.md    |
 | Nick Lotheian  | speakers/04-nick-lotheian.md      |
-| Aiden Morgan   | speakers/05-aiden-morgan.md       |
+| Aidan Morgan   | speakers/05-aidan-morgan.md       |
 | Buan Zich      | speakers/06-buan-zich.md          |
 | Adam Halt      | speakers/07-adam-halt.md          |
 

@@ -37,7 +37,7 @@ and landing copy.
 
 > "My pronouns are I, Claudius."
 
-## Aiden Morgan
+## Aidan Morgan
 
 > "We need to engineer the systems that engineer our systems."
 

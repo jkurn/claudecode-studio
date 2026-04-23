@@ -1,0 +1,175 @@
+Stop building software like it’s
+April 2026
+Experiments building complex systems with Agentic Engineering Teams
+(not at a Bank!)
+
+Aidan Morgan - Bankwest & AITAI - April 2026
+
+We need to engineer the systems that
+engineer our systems
+
+Aidan Morgan - Bankwest & AITAI - April 2026
+
+We need to rethink our workflows to adapt
+to using GenAI
+
+Aidan Morgan - Bankwest & AITAI - April 2026
+
+Conceptual Agentic SDLC
+
+This is a multidimensional problem - it's AI all the way down
+Aidan Morgan - Bankwest & AITAI - April 2026
+
+Coding Loop
+Create code that looks like it works as quickly
+as possible
+
+You aren’t needed in this loop
+
+Aidan Morgan - Bankwest & AITAI - April 2026
+
+Backpressure Loop
+Create backpressure quickly to force
+the LLM on the correct path
+
+Aidan Morgan - Bankwest & AITAI - April 2026
+
+Experimental Deployment Loop
+Invest in Antifragility; detect problems and
+revert quickly, returning to the coding loop
+●
+●
+●
+●
+●
+
+Ephemeral Environments
+Blue/Green Deployments/Canary Deployments
+Synthetic Traffic
+XmR Control Charts to identify deviations
+SLO & SLI, Burn Rates
+
+●
+
+Feature Flags, Circuit Breakers and Bulkheads
+
+Aidan Morgan - Bankwest & AITAI - April 2026
+
+Building Complex Systems with Claude
+
+Aidan Morgan - Bankwest & AITAI - April 2026
+
+Speed
+●
+
+All three loops need to be fast, we want them to be as fast as the LLM can
+generate code
+
+●
+
+Resist the urge to interfere with the process
+○
+○
+○
+
+You’re too slow to help
+Focus energy on developing good guardrails, stop interfering
+Think about ways to create effective backpressure
+
+Aidan Morgan - Bankwest & AITAI - April 2026
+
+Backpressure
+●
+
+Create a signal as quickly as possible that the LLM is going in the wrong
+direction to allow it to correct
+
+●
+
+Backpressure cannot be from human input, we’re too slow
+
+●
+
+Backpressure must be binary, either the change is good or bad
+
+Aidan Morgan - Bankwest & AITAI - April 2026
+
+Non-deterministic systems evaluating
+non-determistic system output creates
+chaos
+
+Aidan Morgan - Bankwest & AITAI - April 2026
+
+… we should adopt Fitness Function
+Driven Development
+
+Aidan Morgan - Bankwest & AITAI - April 2026
+
+FFDD - System Quality
+Use existing tools, or build new tools to make
+deterministic assessment of quality
+
+You don’t need to prompt Claude to follow good
+practices, enforce them deterministically as
+backpressure to the inner loop
+
+Aidan Morgan - Bankwest & AITAI - April 2026
+
+ast-grep and semgrep
+●
+
+ast-grep
+○
+○
+
+●
+
+Primarily a much more powerful grep tool that works on an Abstract Syntax Tree
+Can also be used to enforce custom rules about what makes “good” code
+
+semgrep
+○
+
+Used to detect codebase-wide issues, or issues that are based on semantic checks using
+custom rules
+
+Aidan Morgan - Bankwest & AITAI - April 2026
+
+radon, pyscn,complexipy and import-linter
+●
+●
+●
+●
+●
+
+radon measures maintainability and complexity metrics
+pyscn applies common best-practice code quality measures
+cohesion measures the coupling and cohesion between modules in the
+code
+complexipy measures the cognitive complexity of the codebase
+import-linter enforces architectural layering and dependencies
+
+Aidan Morgan - Bankwest & AITAI - April 2026
+
+Summary
+●
+
+Your job is to engineer the system that engineers your systems
+
+●
+
+Using LLMs to critique LLM output creates a non-linear dynamical system
+(aka chaos)
+○
+○
+
+●
+
+There’s still a lot of value in older tools
+Use LLM’s to develop deterministic tools where they don't exist today
+
+The economics of software development have changed, we need to change
+how we think about our profession
+Aidan Morgan - Bankwest & AITAI - April 2026
+
+

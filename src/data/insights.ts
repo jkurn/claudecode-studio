@@ -50,9 +50,9 @@ export const SPEAKERS: Record<string, Speaker> = {
     role: "Staff engineer",
   },
   aiden: {
-    name: "Aiden Morgan",
+    name: "Aidan Morgan",
     city: "Perth",
-    role: "Serial startup CTO",
+    role: "Bankwest & AITAI / serial startup CTO",
   },
   buan: {
     name: "Buan Zich",
@@ -114,12 +114,12 @@ export const FRAMEWORKS: Framework[] = [
     speaker: SPEAKERS.aiden,
     levels: ["L4", "L5"],
     summary:
-      "Three nested loops: inner (LLM writes code and runs tests, you stay out), middle (deterministic back pressure first, LLM review second, output is binary), outer (canary deploys, observability, auto-rollback). Humans live in the guardrails, not the loops.",
+      "Three nested loops — coding, backpressure, experimental deployment. Humans don't sit inside any of them; humans engineer the guardrails between them. Aidan formally calls the approach Fitness Function Driven Development.",
     body: [
-      "Inner loop: the LLM codes and tests. You're too slow to sit inside it. If it goes off the rails, stop the loop and fix your guardrails (CLAUDE.md, skills, hooks, MCP configs). Don't poke it mid-loop.",
-      "Middle loop: back pressure. Deterministic checks first — ast-grep, semgrep, radon, cohesion, complexipy, import-linter. LLM adversarial review second. Output is binary: pass/fail. Nuance confuses the model.",
-      "Outer loop: canary or blue/green, synthetic traffic, observability, auto-rollback. Failures feed back into the coding loop as tickets.",
-      "Aiden's core rule: \"Using non-deterministic systems to evaluate non-deterministic output is the mathematical definition of chaos.\" Deterministic anchors first. LLM judgement after.",
+      "Coding loop: the LLM writes code and runs tests. \"Create code that looks like it works as quickly as possible.\" You're too slow to sit inside this. If it goes off the rails, stop and fix the guardrails (CLAUDE.md, skills, hooks, MCP configs). Don't poke it mid-loop.",
+      "Backpressure loop: deterministic checks first — ast-grep, semgrep, radon, cohesion, complexipy, import-linter. LLM adversarial review second. Output is binary: pass/fail. Nuance confuses the model. Backpressure cannot come from human input — humans are too slow.",
+      "Experimental deployment loop: ephemeral environments, blue/green and canary deploys, synthetic traffic, XmR control charts, SLOs/SLIs with burn rates, feature flags, circuit breakers, bulkheads. Detect problems and revert before users see them; failures feed back into the coding loop.",
+      "Aidan's core rule: \"Using non-deterministic systems to evaluate non-deterministic output is the mathematical definition of chaos.\" Deterministic anchors first. LLM judgement after.",
     ],
     quotes: [
       "We need to engineer the systems that engineer our systems.",

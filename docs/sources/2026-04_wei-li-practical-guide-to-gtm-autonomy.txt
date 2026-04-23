@@ -1,0 +1,642 @@
+The Practical Guide to GTM Autonomy
+
+The Practical Guide to
+
+GTM Autonomy
+Capability, Process & Mindset at Every Level
+A framework for individual sales reps navigating
+the shift from assisted AI to self-driving GTM.
+
+Wei Li
+April 2026
+
+Page 1
+
+The Practical Guide to GTM Autonomy
+
+The Two Tracks: Capability and Process
+Every level of GTM autonomy requires progress on two fundamentally different tracks.
+Conflating them is the fastest way to stall out. Capability is the raw technical infrastructure that
+makes work possible. Process is the encoded knowledge of how to do the work well. One is
+built by product teams and system integrators. The other is owned entirely by the sales
+organization.
+
+Capability: The Systems That Enable Work
+Capability refers to every system a sales organization uses to get work done. The AI model
+itself is a capability. The agent harness that orchestrates multi-step tasks is a capability. CRM
+access, data enrichment tools, email integration, calendar connectivity, document generation —
+these are all capabilities. They are not exclusively AI, but they form the infrastructure layer that
+determines what is technically possible at any given moment.
+Capability is driven by product development, operations teams, system administrators, and data
+engineers. It is largely outside the control of an individual sales rep. When a new system comes
+online — a new CRM connection, a new AI model, a new multi-agent framework — that is a
+capability unlock. The rep did not create it, but they are now responsible for using it.
+Key Distinction
+Capability answers the question: "What can the system do?" It is the technical ceiling. When
+capability expands, it does not mean value is automatically captured. It means the potential
+for value has expanded. Realizing that potential is the job of process.
+
+Process: The Knowledge That Directs Work
+Process is how work gets done. It is the accumulated knowledge of what works, what doesn’t,
+what matters in a specific deal, what questions to ask a specific persona, how to position
+against a specific competitor, when to push and when to pull back. Process is the difference
+between two sales reps in the same company, selling the same product, with access to the
+same tools, yet producing wildly different results.
+Process is akin to ramping up a new sales rep. They bring broad industry understanding, but
+they need to learn the specific: the specific product, the specific ICP, the specific objections, the
+specific competitive landscape, the specific way this company closes deals. These are encoded
+preferences, curated from careers in sales, from trial and error, from the institutional knowledge
+that lives in the heads of the best performers and rarely makes it into documentation.
+Process answers the question: "How should the system do it?" It governs many scenarios rather
+than a one-to-one situation, and that is precisely what makes it hard. A single capability like
+
+Page 2
+
+The Practical Guide to GTM Autonomy
+
+multi-agent orchestration unlocks a long tail of sales activities. But each of those activities needs
+process to guide it.
+
+Why This Distinction Matters
+The process track always becomes the bottleneck when new capability comes online.
+Connecting a CRM is one capability. But the amount of sales activity that touches a CRM is
+orders of magnitude greater than the connection itself. Adding multi-agent systems is a single
+capability. It unlocks dozens of sales activities that can now be performed autonomously. Each
+one needs process.
+This asymmetry is the central challenge of moving from being assisted by a single AI to
+orchestrating a fleet of agents. Capability expands in steps. Process must expand to fill every
+gap capability creates.
+
+Page 3
+
+The Practical Guide to GTM Autonomy
+
+The Rings of Ownership: What You Control
+A sales organization operates across four concentric rings of influence. Understanding where
+you sit determines what you can practically change.
+Ring
+
+Description
+
+Ring 1: Personal
+
+Everything directly in your control — your preferences, selling style,
+relationships, how you approach problems, position, pitch, negotiate.
+Your process is yours to define.
+
+Ring 2: Deal Team
+
+The people who work with you to close a specific deal — your
+manager, solutions engineer, CSM, account manager. You represent
+and coordinate this team. Their work impacts your outcome, and yours
+impacts theirs.
+
+Ring 3: Sales Team
+
+Your segment, office, region, or patch. The wider team that shares
+your market and methodology. How they go to market shapes the
+environment you sell in.
+
+Ring 4: Sales Organization
+
+The entire go-to-market function. Operates at a metrics, performance,
+and forecasting level. A fundamentally different altitude than a quarterdriven individual rep.
+
+This guide focuses on Ring 1 and Ring 2. These are where an individual sales rep can directly
+affect change. Ring 3 and Ring 4 require separate organizational discussions. The crucial
+insight is this: when told to “think like a VP of Sales,” most reps freeze because they associate
+that with Ring 4 responsibilities. But a VP of Sales also operates at Ring 1 and Ring 2. The goal
+is not to influence the whole organization — it is to apply leadership thinking to the
+scope you already own.
+
+Your Responsibility as a Rep
+As a sales rep, you are ultimately responsible for your pipeline, your targets, and the
+relationship with the customer. You coordinate the work that needs to happen for the customer
+across your deal team. Not every input is something you do yourself, but you own the
+coordination. Sales is the systematic process of uncovering hidden truths — asking the right
+questions at the right time, following threads and hints to dig into the ultimate motivation behind
+why a customer is evaluating your product. That is your job, and it is a fundamentally different
+responsibility than what a sales manager, SE, or CSM carries. Being clear about this boundary
+is what allows you to influence the work of others without overstepping, because you have done
+your job well.
+
+Page 4
+
+The Practical Guide to GTM Autonomy
+
+The Shift: From Individual Contributor to Division
+Head
+Here is the practical reality of AI in sales: the old adage of “more pipeline requires more
+headcount” is beginning to decouple. But for that to truly take effect, a single rep needs to do
+significantly more. The capability is arriving. The experience and process of wielding that
+capability has not caught up.
+A single sales rep who orchestrates a number of AI agents to perform a wider range of
+customer interactions is, in practice, operating more like a division than an individual. What
+does a head of sales think about? Top of funnel, middle of funnel, bottom of funnel. How to
+ramp up activity and productivity. How to review and create metrics. How to forecast. How to
+identify the separation of responsibilities across staff. How to assess where bottlenecks exist in
+both process and capability.
+These are all direct parallels to what an individual rep should start thinking about as they take
+on a higher abstraction of sales responsibilities through AI.
+The Mindset Gap
+The vast majority of sales reps still operate with a one-to-one mindset: I have one target
+and I directly control it. That mental model needs to evolve. A rep managing agents needs
+to deconstruct their target — understand where pipeline sources come from, where
+conversion bottlenecks exist, and how to allocate effort across the funnel. This does not
+mean becoming a VP overnight. It means progressively applying that thinking at each level
+of autonomy, starting with what you already control.
+
+Using Your System to Learn From Your System
+One of the most powerful and underappreciated aspects of this shift is the recursive learning
+loop. You can use AI to learn about AI. You can use the system you are building to teach
+yourself the competencies you will need next.
+You do not need to wait for an expert to teach you forecasting best practices. You can bootstrap
+a personal forecast using your own deal data and your AI, just for yourself, right now. When the
+capability arrives to run forecasting across all your agents, you will have already experienced
+what it is like to think that way. You will have built the mental model before the infrastructure
+demanded it.
+This is already happening in software engineering. Developers use AI coding tools to learn
+patterns they have never implemented before, in real time, on real projects. The same dynamic
+is now available to sales organizations. The barrier to building new competencies has collapsed.
+The only barrier that remains is the willingness to start.
+
+Page 5
+
+The Practical Guide to GTM Autonomy
+
+Page 6
+
+The Practical Guide to GTM Autonomy
+
+Level 1: Assisted — The Delegation Mindset
+"I can break my work into tasks and hand them to someone who can help."
+
+The Mindset Shift
+At Level 1, the fundamental change is learning to decompose your own work. Most reps think in
+outcomes: “I need to close this deal.” At L1, you need to start thinking in tasks: “I need to
+research this account, then draft a follow-up, then update CRM, then prep for my call at 2 PM.”
+That decomposition is the minimum cognitive shift.
+This is deceptively simple. The reason L1 is still a real shift is that most people have never
+needed to articulate their work in discrete, delegatable units. You just did it. Now you need to
+explain it clearly enough that an AI can execute it. That exercise — making your implicit process
+explicit, even temporarily — is the seed of everything that follows.
+
+Capability Requirements
+Capability
+
+What It Enables
+
+AI model (chat-based)
+
+General-purpose task execution — research, drafting, summarization,
+analysis
+
+CRM connection
+
+Account lookup, deal data retrieval, contact information, activity history
+
+Email integration
+
+Draft emails, read threads, prepare responses in context
+
+Data enrichment tools
+
+Company research, contact enrichment, technographic and
+firmographic data
+
+Calendar access
+
+Understand upcoming meetings for contextual prep
+
+These capabilities are largely solved today. The infrastructure for L1 exists. The bottleneck is
+not the system — it is the willingness and ability of the rep to use it.
+
+Process Requirements
+At L1, the rep is still the entire brain. The AI is faster hands. Process lives entirely in the rep’s
+head — they know what to ask for because they have built that intuition over years. The quality
+of the output is directly proportional to the quality of the input.
+This creates an important asymmetry: an experienced rep gets massive value from L1
+because they know exactly what to delegate. A rep in their first 90 days may not even know
+what questions to ask. This is the first place where the recursive learning loop matters — a new
+rep can ask the AI itself: “What should I research before a first meeting with a mid-market SaaS
+company?” and start building their process with the tool’s help.
+
+Page 7
+
+The Practical Guide to GTM Autonomy
+
+Practical Examples: Ring 1 (Personal)
+Top of Funnel
+“Research this account before my cold outreach.” The rep identifies the target. The AI pulls
+company data, recent news, key hires, technographic signals, and competitive landscape. The
+rep uses that research to decide the angle of their outreach and writes the email with that
+context. The judgment of which account, which angle, and what tone is entirely the rep’s. The
+research legwork is the AI’s.
+
+Middle of Funnel
+“Prep me for my discovery call at 2 PM.” The AI pulls CRM data on the deal, summarizes prior
+interactions, identifies the attendees and their roles, surfaces relevant case studies, and
+suggests discovery questions based on the prospect’s industry. The rep walks into the call with
+a brief they would have spent 30 minutes building manually.
+
+Bottom of Funnel
+“Draft a follow-up email summarizing what we agreed in yesterday’s negotiation call.” The AI
+structures the email around the key commitments, next steps, and open items. The rep reviews,
+adjusts tone for the specific relationship, and sends.
+
+Practical Examples: Ring 2 (Deal Team)
+At L1, the deal team impact is secondary but real. The rep can now share higher-quality
+preparation with their SE or manager because the cost of producing it dropped dramatically.
+Instead of walking into a deal review with notes in your head, you walk in with a written brief the
+AI helped you assemble. Instead of verbally describing the deal status, you have a structured
+summary. The deal team gets better inputs, which improves their contributions.
+
+Page 8
+
+The Practical Guide to GTM Autonomy
+
+Level 2: Copilot — The Codification Mindset
+"I know my own process well enough to write it down, and I’m willing to let the system run it."
+
+The Mindset Shift
+L2 is the first real mindset wall. The shift is from doing to describing. At L1, you told the AI what
+to do each time. At L2, you are formalizing how you do things into repeatable sequences that
+the AI executes end-to-end with your review.
+This is harder than it sounds. Most reps have never codified their own process. They just do it.
+Asking someone to write a playbook is asking them to be self-aware about their own workflow in
+a way that selling has never required. It is the difference between being a practitioner and being
+a teacher of your own practice.
+This is where the recursive loop becomes directly practical. A rep can ask their AI: “Based
+on the last ten discovery calls I prepped for with you, what is the pattern? What do I always ask
+you to do? What steps do I always follow?” The system can help you extract your own process
+from your own behavior. You do not have to start with a blank page.
+
+Capability Requirements
+Capability
+
+What It Enables
+
+Playbook engine
+
+Save, version, and execute multi-step task sequences
+
+Skills/context files
+
+Persistent knowledge about your product, ICP, competitors, personas
+that any playbook can reference
+
+Multi-step execution
+
+Chain actions across systems — research, then draft, then update
+CRM, then prepare calendar brief
+
+Template system
+
+Reusable output structures for emails, briefs, reports
+
+All L1 capabilities
+
+Every system connection from L1 is inherited and assumed
+
+Process Requirements
+This is where process becomes the bottleneck for the first time. Each playbook is a process
+decision. It encodes not just “do these five steps” but “do these five steps this way, with these
+judgment calls baked in.” The rep needs to answer questions they may have never explicitly
+considered:
+What do I always do when prepping for a discovery call? What information do I always want?
+What format do I want it in? What do I check first in CRM? How do I structure my follow-up
+
+Page 9
+
+The Practical Guide to GTM Autonomy
+
+emails? What matters in a deal review summary for my manager versus for myself? These are
+process decisions. They are encoded preferences, and encoding them is the work of L2.
+The Right Question to Ask Yourself
+For each stage of your funnel, ask: "What do I do every single time, with almost no
+variation?" That is your first playbook candidate. The answer identifies the highest-leverage,
+lowest-risk processes to codify first.
+
+Practical Examples: Ring 1 (Personal)
+Top of Funnel
+A “Prospect Research Playbook” that runs every time you add a new target account: pull
+company data, check for existing CRM records, enrich key contacts, identify recent trigger
+events (new hires, funding rounds, product launches), score against your ICP criteria, and
+produce a one-page research brief in your preferred format. You initiate it by providing an
+account name. The playbook runs end-to-end. You review the brief and decide whether to
+pursue.
+
+Middle of Funnel
+A “Discovery Prep Playbook” that runs before every discovery call: pull all CRM data on the
+deal, summarize prior touchpoints, research each attendee’s background and role, surface
+relevant case studies by industry and use case, generate tailored discovery questions based on
+what you know so far, and compile everything into a pre-call brief. You still control the
+conversation. But the preparation is systematized.
+
+Bottom of Funnel
+A “Deal Review Playbook” you run weekly on each active opportunity: pull current deal data,
+compare to last week’s status, identify risks and gaps in your deal qualification (e.g., missing
+decision criteria, unclear timeline, unvalidated champion), and produce a structured summary
+with recommended next actions. This is you performing your own pipeline review — applying
+the “division head” thinking at the personal level.
+
+Practical Examples: Ring 2 (Deal Team)
+At L2, the deal team ring becomes genuinely actionable. A playbook can encode the handoff
+between you and your SE: “When a deal reaches the demo stage, generate an SE brief
+containing the prospect’s pain points, technical requirements, current stack, and specific
+questions they’ve raised.” You are not just improving your own efficiency — you are improving
+the interface between you and your deal team by ensuring they receive consistently highquality, structured inputs.
+
+Page 10
+
+The Practical Guide to GTM Autonomy
+
+Similarly, a “Manager Briefing Playbook” can produce a weekly summary for your deal reviews
+with your manager: deals by stage, top risks, forecast changes, and specific asks for coaching
+or escalation. Your manager gets better information. Your review meetings become more
+productive. The coordination overhead drops.
+
+Page 11
+
+The Practical Guide to GTM Autonomy
+
+Level 3: Autopilot — The Management Mindset
+"I define what good looks like, set the triggers, and manage exceptions rather than execution."
+
+The Mindset Shift
+L3 is where the rep genuinely becomes a manager of agents. Work happens without your
+initiation. Playbooks that you built at L2 are now wired to signals — a deal stage change, an
+inbound lead, a calendar trigger, an email going unanswered for 48 hours. The agents run. You
+handle exceptions.
+The cognitive shift here is from reviewing all work to defining standards and monitoring
+deviations. You cannot read every email your agents draft. You cannot review every research
+brief. Instead, you need to ask: what are the signals that tell me something went wrong? What
+should trigger an escalation to me? What does “good enough” look like when I am not looking at
+every output?
+This is the same judgment a manager exercises when deciding which reps can run deals
+independently and which need coaching on every call. You are now making that judgment
+about your agents, mapped to your funnel.
+
+Capability Requirements
+Capability
+
+What It Enables
+
+Signal detection
+
+Listen for events across systems — deal stage changes, email
+responses, form fills, calendar triggers, CRM updates
+
+Trigger engine
+
+Wire signals to playbook execution automatically
+
+Multi-agent orchestration
+
+Run multiple agents concurrently, each handling different parts of the
+funnel
+
+Escalation logic
+
+Define rules for when an agent should stop and hand off to the rep
+
+Quality monitoring
+
+Dashboards or alerts that surface agent output quality, errors, and
+anomalies
+
+All L1 + L2 capabilities
+
+Everything from prior levels is inherited
+
+Process Requirements
+The process requirements at L3 jump significantly because you are now encoding exception
+handling, not just execution. A senior rep knows when to deviate from the playbook. That
+instinct is the hardest thing to capture. At L3, you need to make it explicit:
+
+Page 12
+
+The Practical Guide to GTM Autonomy
+
+For each automated playbook, you need to define: What triggers it? (A deal moving to a
+specific stage, an inbound lead matching certain criteria, a time-based event.) What does the
+output look like when it is working well? (A research brief that covers all key areas, a followup email that is on-tone and accurate.) What should cause an escalation? (A prospect asking
+a question outside the agent’s scope, a deal showing risk signals, an email that requires
+sensitive handling.)
+The Cost-of-Error Framework
+For each stage of your funnel, ask: "What is the cost of an error at this stage?" At the top of
+funnel, a mediocre cold email costs you one prospect’s attention. In the middle, a poorly
+prepped demo could lose a deal. At the bottom, a mishandled negotiation email could cost
+you revenue. Map your autonomy levels to this cost gradient: more autonomy where the
+cost of error is low, tighter controls where it is high.
+
+Practical Examples: Ring 1 (Personal)
+Top of Funnel
+A prospecting agent runs continuously: when new companies matching your ICP criteria appear
+in your enrichment tools, the agent automatically researches them, scores them, and either
+adds them to your prospecting queue with a brief or, for high-scoring accounts, drafts initial
+outreach for your review. You are not initiating the research. You are reviewing the output of a
+machine that is always scanning for opportunities.
+
+Middle of Funnel
+An active deal monitoring agent watches your pipeline. When a deal has had no activity for a
+defined period, it drafts a re-engagement email. When a prospect replies to an email with
+specific keywords (pricing, timeline, competitors), it triggers a deeper research pass and flags
+the deal for your attention with context. When a discovery call is scheduled, it automatically runs
+your Discovery Prep Playbook and puts the brief in your calendar event 30 minutes before the
+call.
+
+Bottom of Funnel
+A deal progression agent monitors deals in late stages. When a proposal is sent and no
+response comes within 48 hours, it drafts a check-in. When a champion goes quiet during the
+procurement process, it surfaces the risk with suggested next actions. You still make every
+decision at this stage. But the agent ensures nothing falls through the cracks and that you
+always have a suggested next move.
+
+Practical Examples: Ring 2 (Deal Team)
+
+Page 13
+
+The Practical Guide to GTM Autonomy
+
+At L3, the deal team coordination becomes semi-automated. An agent can notify your SE
+automatically when a deal reaches the demo stage, attaching the SE brief your L2 playbook
+generates. An agent can flag to your manager when a deal has risk signals that warrant a joint
+call or executive intervention. An agent can prepare a deal review package before your weekly
+pipeline meeting with your manager, so the meeting starts with shared context instead of
+spending the first 15 minutes on status updates.
+The rep’s responsibility at this level is defining the coordination protocols — what information
+flows to whom, when, and in what format. You are not doing the coordination manually. You are
+designing the system that coordinates.
+
+Page 14
+
+The Practical Guide to GTM Autonomy
+
+Level 4: Self-Driving — The Strategic Mindset
+"I set direction, define what success looks like, and the system figures out the tactics."
+
+The Mindset Shift
+At L4, the rep operates as a strategist. You are no longer defining individual playbooks or
+reviewing individual outputs. You are setting direction: which market segments to prioritize, what
+qualification bar to hold, what the target pipeline mix should look like, where to invest your
+personal time versus delegate to agents.
+The system at L4 observes what works across all the levels below it. It identifies patterns you
+may not see: which outreach sequences convert best for which personas, which deal patterns
+correlate with wins versus losses, where your funnel consistently leaks, what the optimal timing
+is for follow-ups based on your actual data.
+This is where the meta-thinking you’ve been building becomes essential. You are using the
+system to learn from the system. The agents have generated more data and completed more
+tasks than you could ever consume in detail. Your job is to ask the right questions: What is
+working? What is not? Where should I shift resources? What should I stop doing? This is the
+same altitude at which a head of division operates — but scoped to your Ring 1 and Ring 2.
+
+Capability Requirements
+Capability
+
+What It Enables
+
+Pattern recognition
+
+Analyze outcomes across all agent activity to identify what works and
+what does not
+
+Workflow generation
+
+The system proposes new playbooks or modifications to existing ones
+based on observed patterns
+
+Performance analytics
+
+Metrics on agent output quality, conversion rates by approach, funnel
+velocity by segment
+
+A/B testing infrastructure
+
+Test variations of outreach, sequencing, and timing systematically
+
+Cross-agent learning
+
+Insights from one agent’s performance inform the behavior of others
+
+All L1 + L2 + L3
+capabilities
+
+Full stack inherited
+
+Process Requirements
+At L4, process is no longer something you write. It is something the system generates and you
+evaluate. Your process responsibility shifts to defining the criteria for what a good process looks
+
+Page 15
+
+The Practical Guide to GTM Autonomy
+
+like: What metrics matter? What does a quality interaction look like? What are the guardrails the
+system should never cross?
+This is the full expression of the “division head at Ring 1” concept. You are thinking about
+pipeline coverage across your funnel segments. You are reviewing conversion rates by agent
+and approach. You are adjusting resource allocation based on performance data. You are
+running your own forecast — not because your manager asked for it, but because you need it to
+manage your operation.
+
+Practical Examples: Ring 1 (Personal)
+Across the Funnel
+The system surfaces that your outreach to VP-level personas converts at twice the rate of
+Director-level outreach in the manufacturing segment, but the opposite is true in financial
+services. It recommends shifting your prospecting agent’s targeting criteria by segment. You
+review the data, validate it against your experience, and approve the adjustment. The agents
+adapt.
+Your deal review agent notices that deals where the champion has a technical background
+close 40% faster than those without. It recommends prioritizing technical champions in your
+qualification process and suggests updating your discovery questions to probe for this earlier.
+You refine the playbook. The system improves.
+
+Practical Examples: Ring 2 (Deal Team)
+The system identifies that deals where your SE is involved before the second call have a
+significantly higher win rate than deals where the SE enters later. It recommends adjusting the
+trigger for SE involvement from “demo stage” to “post-discovery if technical requirements
+surface.” This is the kind of insight that typically requires a manager reviewing dozens of deals
+over months. The system surfaces it from data and proposes the change.
+
+Page 16
+
+The Practical Guide to GTM Autonomy
+
+The Ramp Is Not a Cliff
+The progression from L1 to L4 is not a series of dramatic leaps. Each level inherits the work
+from the level below. A good L1 interaction becomes the seed of an L2 playbook. A good L2
+playbook becomes the foundation of an L3 automation. L3 performance data feeds L4
+optimization. The flywheel connects every level.
+
+The Capability Track Scales Down in Effort
+Once the infrastructure is built, each incremental capability is cheaper to add. A new CRM
+connection is a one-time setup. A new model upgrade applies everywhere. The capability effort
+front-loads and then diminishes. This is why capability is often the easier track — it is finite and
+measurable.
+
+The Process Track Scales Up in Cognitive Demand
+Process moves in the opposite direction. At L1, the process overhead is minimal: know what to
+delegate. At L2, you must formalize your workflows. At L3, you must define quality standards
+and exception handling. At L4, you must set strategic direction and evaluate systemic
+performance. Each level asks you to think at a higher altitude.
+But the ramp is different for everyone, and it does not need to happen all at once. The critical
+insight is that you can start preparing for the next level before the capability demands it. Use
+your AI to bootstrap a personal forecast before you need to forecast across agents. Use it to
+review your own conversion patterns before the system can do it automatically. Every time you
+use the tool to think about your own process, you are building the cognitive muscle for the next
+level.
+Start Where You Are
+You do not need to think like a VP of Sales on day one. But at every level, there is a version
+of that thinking that applies to your scope. At L1, it is as simple as: which tasks should I
+delegate first? At L2: what does my process actually look like? At L3: what does good look
+like without me watching? At L4: what should I be optimizing for? Each question is a small
+step in the same direction.
+
+The Mindset Summary
+Level
+
+Core Mindset
+
+L1: Assisted
+
+"I can decompose my work into tasks and delegate them." The shift
+from doing everything yourself to articulating what you need done.
+
+Page 17
+
+The Practical Guide to GTM Autonomy
+
+L2: Copilot
+
+"I know my process well enough to describe it." The shift from
+practitioner to teacher of your own practice. You can extract patterns
+from your own behavior.
+
+L3: Autopilot
+
+"I can define what good looks like without seeing every output." The
+shift from reviewing work to setting standards and managing
+exceptions.
+
+L4: Self-Driving
+
+"I set direction and the system figures out tactics." The shift from
+managing workflows to evaluating performance and setting strategy.
+
+What Stays Constant
+Across every level, the rep’s core job does not change. You are still the person responsible for
+the relationship with the customer. You are still the one who asks the right questions in a
+discovery call, who reads the room in a negotiation, who builds trust over time. AI does not
+replace that judgment. It amplifies it by removing the work that was never the highest use of
+your time.
+The capability will continue to expand. New models will come online. New integrations will be
+connected. New agent frameworks will emerge. Much of that is outside your control. But what is
+always in your control is how you think about your work, how you structure your process, and
+how willing you are to let the system help you. Act as if the capability is already there,
+because when it catches up, things will move very quickly for those who have already
+built the mindset.
+
+Page 18
+
+
