@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useRef } from "react";
+import Link from "next/link";
+import { FRAMEWORKS, HARNESS_LAYERS } from "@/data/insights";
 
 /* ─────────────────────── DATA ─────────────────────── */
 
@@ -176,6 +178,56 @@ function LevelCard({
       <p className="text-xs text-muted mt-3 font-mono">
         <span style={{ color: level.color }}>→</span> {level.unlock}
       </p>
+    </div>
+  );
+}
+
+/* ─────────────────────── ADOPTION DOT GRID ─────────────────────── */
+
+/*
+ * Visual analogue of Stephen Coleman's webinar chart: each dot ≈ 3.2M people.
+ * 20 cols × 13 rows ≈ 260 dots ≈ ~832M people, well short of the ~8B on the
+ * planet — the whole point is the chart leaves most of humanity *off* the
+ * page. A small fraction are tinted to represent active Claude Code users.
+ */
+function AdoptionDotGrid() {
+  const cols = 20;
+  const rows = 13;
+  const total = cols * rows;
+  // ~1% of the visible dots are "builders"; the rest are "not yet."
+  const builderCount = Math.max(1, Math.round(total * 0.01));
+  const builderIdx = new Set<number>();
+  // Scatter the builders deterministically so the render is stable.
+  for (let i = 0; i < builderCount; i++) {
+    builderIdx.add((i * 97 + 53) % total);
+  }
+
+  return (
+    <div
+      className="mx-auto"
+      style={{
+        maxWidth: "42rem",
+        display: "grid",
+        gridTemplateColumns: `repeat(${cols}, 1fr)`,
+        gap: "8px",
+      }}
+      aria-label="Adoption visualisation: most people have not used AI"
+    >
+      {Array.from({ length: total }).map((_, i) => {
+        const isBuilder = builderIdx.has(i);
+        return (
+          <span
+            key={i}
+            className="block rounded-full"
+            style={{
+              width: "10px",
+              height: "10px",
+              backgroundColor: isBuilder ? "var(--accent)" : "var(--border)",
+              opacity: isBuilder ? 1 : 0.4,
+            }}
+          />
+        );
+      })}
     </div>
   );
 }
@@ -402,16 +454,18 @@ export default function Home() {
             className="fade-in-up mt-8 mb-6 tracking-tight leading-[1.1]"
             style={{ animationDelay: "150ms", fontSize: "64px", fontWeight: 700 }}
           >
-            Claude Code has 50+ features.
+            The model stopped being the hard part.
             <br />
-            <span className="text-accent">You&apos;re using 5.</span>
+            <span className="text-accent">The harness is.</span>
           </h1>
 
           <p
             className="fade-in-up text-muted max-w-xl mx-auto mb-10 leading-relaxed"
             style={{ animationDelay: "300ms", fontSize: "24px", fontWeight: 400 }}
           >
-            Every week you spend cobbling together tips from Twitter threads, someone with the same tool is automating their entire workflow. The difference is sequence, not skill.
+            Claude Code has 50+ features. Most people use five. The gap between a
+            prompter and an orchestrator isn&apos;t talent — it&apos;s sequence. Find your
+            level, and we&apos;ll send you the next step each week.
           </p>
 
           <div className="fade-in-up" style={{ animationDelay: "450ms" }}>
@@ -453,6 +507,35 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── YOU'RE NOT LATE ─── */}
+      <section className="px-6 py-20 border-t border-border/40">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-10">
+            <div className="font-mono text-xs text-muted uppercase tracking-wider mb-4">
+              a quick reassurance
+            </div>
+            <h2 style={{ fontSize: "36px", fontWeight: 700 }} className="mb-4">
+              You&apos;re not late.
+            </h2>
+            <p className="text-muted max-w-xl mx-auto" style={{ fontSize: "18px" }}>
+              Each dot below is 3.2 million people. The vast majority have never
+              meaningfully used AI. The people building skills, hooks, and MCP
+              pipelines are a microscopic slice.
+            </p>
+          </div>
+
+          <AdoptionDotGrid />
+
+          <p className="text-muted text-center max-w-xl mx-auto mt-8 text-[15px] leading-relaxed">
+            Every week you feel behind. You&apos;re not. Your chance to own the
+            space you&apos;re working in is still wide open.
+            <span className="block mt-2 text-xs font-mono">
+              — framing borrowed from Stephen Coleman, Stratum
+            </span>
+          </p>
+        </div>
+      </section>
+
       {/* ─── MATURITY FRAMEWORK ─── */}
       <section className="px-6 py-20 border-t border-border/40">
         <div className="max-w-3xl mx-auto">
@@ -471,6 +554,58 @@ export default function Home() {
               <LevelCard key={level.id} level={level} />
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ─── HARNESS LAYERS (KRANG) ─── */}
+      <section className="px-6 py-20 border-t border-border/40 bg-surface">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="font-mono text-xs text-muted uppercase tracking-wider mb-4">
+              why the levels work
+            </div>
+            <h2 style={{ fontSize: "36px", fontWeight: 700 }} className="mb-4">
+              Four layers. The model is the least of them.
+            </h2>
+            <p className="text-muted max-w-xl mx-auto" style={{ fontSize: "18px" }}>
+              A brain in a jar can&apos;t do anything. Strap it into a body,
+              hand it tools, and let someone with taste pilot it — now you have
+              a system. That&apos;s what each level of fluency is really unlocking.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-4">
+            {HARNESS_LAYERS.map((layer) => (
+              <div
+                key={layer.id}
+                className="border border-border/60 rounded-xl p-6 bg-white"
+              >
+                <div className="flex items-baseline gap-3 mb-3">
+                  <span
+                    className="font-mono text-xs font-bold px-2.5 py-1 rounded-md"
+                    style={{
+                      backgroundColor: `${layer.accent}15`,
+                      color: layer.accent,
+                    }}
+                  >
+                    {layer.label}
+                  </span>
+                  <span className="text-muted text-xs font-mono">
+                    {layer.sublabel}
+                  </span>
+                </div>
+                <p className="text-[15px] leading-relaxed text-muted">
+                  {layer.description}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-muted text-center max-w-xl mx-auto mt-8 text-[15px]">
+            <span className="font-mono text-xs">
+              — the Krang metaphor, via Stephen Coleman
+            </span>
+          </p>
         </div>
       </section>
 
@@ -557,8 +692,69 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── INSIGHTS PREVIEW ─── */}
+      <section className="px-6 py-20 border-t border-border/40">
+        <div className="max-w-3xl mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+            <div>
+              <div className="font-mono text-xs text-muted uppercase tracking-wider mb-3">
+                insights from the community
+              </div>
+              <h2 style={{ fontSize: "36px", fontWeight: 700 }} className="mb-2">
+                Seven frameworks, from people who ship.
+              </h2>
+              <p className="text-muted max-w-xl" style={{ fontSize: "17px" }}>
+                Pulled from the Claude Community Australia livestream. Each one
+                is the thing a serious builder picked to talk about in twenty
+                minutes. Start with whichever matches where you are.
+              </p>
+            </div>
+            <Link
+              href="/insights"
+              className="font-mono text-sm text-accent hover:underline whitespace-nowrap self-start sm:self-end"
+            >
+              see all seven →
+            </Link>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-4">
+            {FRAMEWORKS.slice(0, 4).map((f) => (
+              <Link
+                key={f.slug}
+                href={`/insights/${f.slug}`}
+                className="block border border-border/60 rounded-xl p-6 bg-white hover:border-accent/50 hover:bg-surface-hover transition-all"
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  {f.levels.map((lvl) => (
+                    <span
+                      key={lvl}
+                      className="font-mono text-[11px] font-bold px-2 py-0.5 rounded bg-accent/10 text-accent"
+                    >
+                      {lvl}
+                    </span>
+                  ))}
+                </div>
+                <h3 className="font-semibold mb-2" style={{ fontSize: "17px" }}>
+                  {f.title}
+                </h3>
+                <p className="text-muted text-[14px] leading-relaxed mb-4">
+                  {f.tagline}
+                </p>
+                <div className="font-mono text-xs text-muted">
+                  — {f.speaker.name}, {f.speaker.city}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ─── QUIZ / RESULT ─── */}
-      <section ref={quizRef} className="px-6 py-20 border-t border-border/40 bg-surface">
+      <section
+        id="quiz"
+        ref={quizRef}
+        className="px-6 py-20 border-t border-border/40 bg-surface scroll-mt-8"
+      >
         <div className="max-w-3xl mx-auto">
           {!quizStarted ? (
             <div className="text-center">
@@ -584,13 +780,27 @@ export default function Home() {
       </section>
 
       {/* ─── FOOTER ─── */}
-      <footer className="px-6 py-8 border-t border-border/40">
-        <div className="max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted">
-          <div className="font-mono">
-            <span className="text-accent">claudecode</span>.studio
+      <footer className="px-6 py-10 border-t border-border/40">
+        <div className="max-w-3xl mx-auto flex flex-col gap-6 text-xs text-muted">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="font-mono">
+              <span className="text-accent">claudecode</span>.studio
+            </div>
+            <nav className="flex items-center gap-5 font-mono">
+              <Link href="/" className="hover:text-accent transition-colors">
+                home
+              </Link>
+              <Link
+                href="/insights"
+                className="hover:text-accent transition-colors"
+              >
+                insights
+              </Link>
+            </nav>
           </div>
-          <div>
-            Made by someone who spent way too many late nights learning Claude Code — so you can skip the hard part.
+          <div className="text-center sm:text-left">
+            Made by someone who spent way too many late nights learning Claude
+            Code — so you can skip the hard part.
           </div>
         </div>
       </footer>
