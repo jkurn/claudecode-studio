@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DROPS, dropBySlug } from "@/data/drops";
 import { SiteFooter } from "@/components/SiteFooter";
+import { JsonLd } from "@/components/JsonLd";
+import { SITE } from "@/lib/site";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -36,8 +38,25 @@ export default async function DropPage({ params }: Props) {
   const prev = idx > 0 ? DROPS[idx - 1] : null;
   const next = idx < DROPS.length - 1 ? DROPS[idx + 1] : null;
 
+  const ld = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: drop.title,
+    description: drop.headline,
+    author: {
+      "@type": "Person",
+      name: drop.source.speaker.name,
+      jobTitle: drop.source.speaker.role,
+      address: drop.source.speaker.city,
+    },
+    publisher: { "@type": "Organization", name: SITE.name, url: SITE.url },
+    mainEntityOfPage: `${SITE.url}/drops/${drop.slug}`,
+    keywords: drop.levelDisplay,
+  };
+
   return (
     <main className="min-h-screen">
+      <JsonLd data={ld} />
       <section className="px-6 pt-16 pb-10 border-b border-border/40">
         <div className="max-w-2xl mx-auto">
           <nav className="font-mono text-xs text-muted mb-10">

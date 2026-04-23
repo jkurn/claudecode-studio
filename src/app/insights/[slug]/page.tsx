@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FRAMEWORKS, frameworkBySlug } from "@/data/insights";
 import { SiteFooter } from "@/components/SiteFooter";
+import { JsonLd } from "@/components/JsonLd";
+import { SITE } from "@/lib/site";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -41,8 +43,25 @@ export default async function FrameworkPage({ params }: Props) {
       ? FRAMEWORKS[currentIndex + 1]
       : null;
 
+  const ld = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: framework.title,
+    description: framework.tagline,
+    author: {
+      "@type": "Person",
+      name: framework.speaker.name,
+      jobTitle: framework.speaker.role,
+      address: framework.speaker.city,
+    },
+    publisher: { "@type": "Organization", name: SITE.name, url: SITE.url },
+    mainEntityOfPage: `${SITE.url}/insights/${framework.slug}`,
+    keywords: framework.levels.join(", "),
+  };
+
   return (
     <main className="min-h-screen">
+      <JsonLd data={ld} />
       {/* ─── HEADER ─── */}
       <section className="px-6 pt-16 pb-10 border-b border-border/40">
         <div className="max-w-2xl mx-auto">

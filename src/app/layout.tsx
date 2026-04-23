@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { SITE } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,14 +14,23 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "claudecode.studio — Find Your Level",
-  description:
-    "The maturity framework for Claude Code. Take the quiz, find your level, get a structured path from prompter to orchestrator.",
+  metadataBase: new URL(SITE.url),
+  title: {
+    default: `${SITE.name} — find your level`,
+    template: `%s — ${SITE.name}`,
+  },
+  description: SITE.description,
   openGraph: {
-    title: "claudecode.studio — Find Your Level",
-    description:
-      "The maturity framework for Claude Code. Stop hoarding bookmarks. Start leveling up.",
+    title: `${SITE.name} — find your level`,
+    description: SITE.description,
     type: "website",
+    url: SITE.url,
+    siteName: SITE.name,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE.name} — find your level`,
+    description: SITE.description,
   },
 };
 
