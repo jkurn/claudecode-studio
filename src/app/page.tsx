@@ -1,6 +1,9 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { FRAMEWORKS, HARNESS_LAYERS } from "@/data/insights";
+import { SiteFooter } from "@/components/SiteFooter";
 
 /* ─────────────────────── DATA ─────────────────────── */
 
@@ -146,7 +149,7 @@ function LevelCard({
 }) {
   return (
     <div
-      className="border border-border/60 rounded-xl p-6 transition-all duration-300 hover:border-accent/40 hover:bg-surface-hover bg-white"
+      className="border border-border/60 rounded-xl p-6 transition-all duration-300 hover:border-accent/40 hover:bg-surface-hover bg-[var(--card)]"
     >
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-3">
@@ -180,11 +183,69 @@ function LevelCard({
   );
 }
 
+/* ─────────────────────── ADOPTION DOT GRID ─────────────────────── */
+
+/*
+ * Visual analogue of Stephen Coleman's webinar chart: each dot ≈ 3.2M people.
+ * 20 cols × 13 rows ≈ 260 dots ≈ ~832M people, well short of the ~8B on the
+ * planet — the whole point is the chart leaves most of humanity *off* the
+ * page. A small fraction are tinted to represent active Claude Code users.
+ */
+function AdoptionDotGrid() {
+  const cols = 20;
+  const rows = 13;
+  const total = cols * rows;
+  // ~1% of the visible dots are "builders"; the rest are "not yet."
+  const builderCount = Math.max(1, Math.round(total * 0.01));
+  const builderIdx = new Set<number>();
+  // Scatter the builders deterministically so the render is stable.
+  for (let i = 0; i < builderCount; i++) {
+    builderIdx.add((i * 97 + 53) % total);
+  }
+
+  return (
+    <div
+      className="mx-auto"
+      style={{
+        maxWidth: "42rem",
+        display: "grid",
+        gridTemplateColumns: `repeat(${cols}, 1fr)`,
+        gap: "8px",
+      }}
+      aria-label="Adoption visualisation: most people have not used AI"
+    >
+      {Array.from({ length: total }).map((_, i) => {
+        const isBuilder = builderIdx.has(i);
+        const targetOpacity = isBuilder ? 1 : 0.4;
+        // Stagger across ~1.2s total; rows light up roughly left-to-right.
+        const delayMs = Math.min(1200, (i % cols) * 6 + Math.floor(i / cols) * 30);
+        return (
+          <span
+            key={i}
+            className="block rounded-full adoption-dot"
+            style={
+              {
+                width: "10px",
+                height: "10px",
+                backgroundColor: isBuilder ? "var(--accent)" : "var(--border)",
+                ["--target-opacity"]: targetOpacity,
+                animationDelay: `${delayMs}ms`,
+              } as React.CSSProperties
+            }
+          />
+        );
+      })}
+    </div>
+  );
+}
+
 /* ─────────────────────── QUIZ ─────────────────────── */
 
 function Quiz({ onComplete }: { onComplete: (level: (typeof LEVELS)[number]) => void }) {
   const [current, setCurrent] = useState(0);
   const [scores, setScores] = useState<number[]>([]);
+
+  const q = QUESTIONS[current];
 
   const handleAnswer = (score: number) => {
     const newScores = [...scores, score];
@@ -198,7 +259,30 @@ function Quiz({ onComplete }: { onComplete: (level: (typeof LEVELS)[number]) => 
     }
   };
 
-  const q = QUESTIONS[current];
+  // Keyboard nav: A/B/C/D or 1-4 picks an option; Backspace steps back.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const key = e.key.toLowerCase();
+      const letter = "abcd".indexOf(key);
+      const digit = "1234".indexOf(key);
+      const idx = letter >= 0 ? letter : digit;
+      if (idx >= 0 && idx < q.options.length) {
+        e.preventDefault();
+        handleAnswer(q.options[idx].score);
+        return;
+      }
+      if (e.key === "Backspace" && current > 0) {
+        e.preventDefault();
+        setCurrent((c) => Math.max(0, c - 1));
+        setScores((s) => s.slice(0, -1));
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [current, q]);
+
   const progress = ((current + 1) / QUESTIONS.length) * 100;
 
   return (
@@ -217,6 +301,9 @@ function Quiz({ onComplete }: { onComplete: (level: (typeof LEVELS)[number]) => 
             style={{ width: `${progress}%` }}
           />
         </div>
+        <div className="mt-2 font-mono text-[11px] text-muted/70 text-right">
+          press A–D or 1–4 · backspace to go back
+        </div>
       </div>
 
       {/* Question */}
@@ -230,7 +317,7 @@ function Quiz({ onComplete }: { onComplete: (level: (typeof LEVELS)[number]) => 
           <button
             key={`${current}-${i}`}
             onClick={() => handleAnswer(opt.score)}
-            className="fade-in-up w-full text-left p-4 border border-border/60 rounded-xl bg-white
+            className="fade-in-up w-full text-left p-4 border border-border/60 rounded-xl bg-[var(--card)]
                        hover:border-accent/60 hover:bg-surface-hover transition-all duration-200
                        font-mono text-sm group cursor-pointer"
             style={{ animationDelay: `${i * 80}ms` }}
@@ -248,14 +335,35 @@ function Quiz({ onComplete }: { onComplete: (level: (typeof LEVELS)[number]) => 
 
 /* ─────────────────────── RESULT ─────────────────────── */
 
-function Result({ level }: { level: (typeof LEVELS)[number] }) {
+function Result({
+  level,
+  onRetake,
+}: {
+  level: (typeof LEVELS)[number];
+  onRetake: () => void;
+}) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // TODO: Connect to email service (ConvertKit/Buttondown/Resend)
     setSubmitted(true);
+  };
+
+  const handleShare = async () => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("level", level.tag);
+    const shareUrl = url.toString();
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Older browsers: fall back to showing the URL in a prompt.
+      window.prompt("Copy your shareable URL:", shareUrl);
+    }
   };
 
   const currentIndex = LEVELS.findIndex((l) => l.id === level.id);
@@ -266,7 +374,7 @@ function Result({ level }: { level: (typeof LEVELS)[number] }) {
       <div className="text-center mb-10">
         <div className="font-mono text-sm text-muted mb-4">Your Claude Code fluency level:</div>
         <div
-          className="inline-flex items-center gap-3 px-6 py-3 rounded-xl border mb-4 bg-white"
+          className="inline-flex items-center gap-3 px-6 py-3 rounded-xl border mb-4 bg-[var(--card)]"
           style={{
             borderColor: level.color,
             backgroundColor: `${level.color}08`,
@@ -284,7 +392,7 @@ function Result({ level }: { level: (typeof LEVELS)[number] }) {
       </div>
 
       {/* What's next */}
-      <div className="border border-border/60 rounded-xl p-6 mb-8 bg-white">
+      <div className="border border-border/60 rounded-xl p-6 mb-8 bg-[var(--card)]">
         <h4 className="font-semibold mb-4 text-xs uppercase tracking-wider text-muted font-mono">
           Your path forward
         </h4>
@@ -346,7 +454,7 @@ function Result({ level }: { level: (typeof LEVELS)[number] }) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
-                className="flex-1 bg-white border border-border/60 rounded-xl px-4 py-2.5
+                className="flex-1 bg-[var(--card)] border border-border/60 rounded-xl px-4 py-2.5
                            text-sm font-mono placeholder:text-muted/50
                            focus:outline-none focus:border-accent/60 transition-colors"
               />
@@ -362,11 +470,18 @@ function Result({ level }: { level: (typeof LEVELS)[number] }) {
         )}
       </div>
 
-      {/* Retake */}
-      <div className="text-center mt-6">
+      {/* Share + retake */}
+      <div className="flex items-center justify-center gap-6 mt-6 text-xs font-mono text-muted">
         <button
-          onClick={() => window.location.reload()}
-          className="text-muted text-xs font-mono hover:text-accent transition-colors cursor-pointer"
+          onClick={handleShare}
+          className="hover:text-accent transition-colors cursor-pointer"
+        >
+          {copied ? "✓ copied" : "↗ share your level"}
+        </button>
+        <span className="w-px h-3 bg-border/40" />
+        <button
+          onClick={onRetake}
+          className="hover:text-accent transition-colors cursor-pointer"
         >
           ← take it again
         </button>
@@ -377,10 +492,44 @@ function Result({ level }: { level: (typeof LEVELS)[number] }) {
 
 /* ─────────────────────── MAIN PAGE ─────────────────────── */
 
+const STORAGE_KEY = "claudecode-studio:level";
+
+function levelByTag(tag: string) {
+  return LEVELS.find((l) => l.tag === tag);
+}
+
 export default function Home() {
   const [quizStarted, setQuizStarted] = useState(false);
   const [result, setResult] = useState<(typeof LEVELS)[number] | null>(null);
   const quizRef = useRef<HTMLDivElement>(null);
+
+  // Rehydrate from ?level=Lx OR localStorage. This is a mount-only
+  // hydration effect from browser APIs; one of the canonical legitimate
+  // uses of setState-in-effect.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const fromUrl = params.get("level");
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    const tag = fromUrl ?? stored;
+    if (tag) {
+      const lvl = levelByTag(tag);
+      if (lvl) {
+        /* eslint-disable-next-line react-hooks/set-state-in-effect */
+        setResult(lvl);
+        setQuizStarted(true);
+      }
+    }
+  }, []);
+
+  // Persist on change.
+  useEffect(() => {
+    if (result) {
+      window.localStorage.setItem(STORAGE_KEY, result.tag);
+      const url = new URL(window.location.href);
+      url.searchParams.set("level", result.tag);
+      window.history.replaceState(null, "", url.toString());
+    }
+  }, [result]);
 
   const scrollToQuiz = () => {
     setQuizStarted(true);
@@ -389,8 +538,16 @@ export default function Home() {
     }, 100);
   };
 
+  const handleRetake = () => {
+    window.localStorage.removeItem(STORAGE_KEY);
+    const url = new URL(window.location.href);
+    url.searchParams.delete("level");
+    window.history.replaceState(null, "", url.toString());
+    window.location.reload();
+  };
+
   return (
-    <main className="min-h-screen">
+    <main id="main" className="min-h-screen">
       {/* ─── HERO ─── */}
       <section className="relative px-6 pt-24 pb-28 overflow-hidden">
         <div className="relative max-w-3xl mx-auto text-center">
@@ -402,16 +559,18 @@ export default function Home() {
             className="fade-in-up mt-8 mb-6 tracking-tight leading-[1.1]"
             style={{ animationDelay: "150ms", fontSize: "64px", fontWeight: 700 }}
           >
-            Claude Code has 50+ features.
+            The model stopped being the hard part.
             <br />
-            <span className="text-accent">You&apos;re using 5.</span>
+            <span className="text-accent">The harness is.</span>
           </h1>
 
           <p
             className="fade-in-up text-muted max-w-xl mx-auto mb-10 leading-relaxed"
             style={{ animationDelay: "300ms", fontSize: "24px", fontWeight: 400 }}
           >
-            Every week you spend cobbling together tips from Twitter threads, someone with the same tool is automating their entire workflow. The difference is sequence, not skill.
+            Claude Code has 50+ features. Most people use five. The gap between a
+            prompter and an orchestrator isn&apos;t talent — it&apos;s sequence. Find your
+            level, and we&apos;ll send you the next step each week.
           </p>
 
           <div className="fade-in-up" style={{ animationDelay: "450ms" }}>
@@ -453,6 +612,35 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── YOU'RE NOT LATE ─── */}
+      <section className="px-6 py-20 border-t border-border/40">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-10">
+            <div className="font-mono text-xs text-muted uppercase tracking-wider mb-4">
+              a quick reassurance
+            </div>
+            <h2 style={{ fontSize: "36px", fontWeight: 700 }} className="mb-4">
+              You&apos;re not late.
+            </h2>
+            <p className="text-muted max-w-xl mx-auto" style={{ fontSize: "18px" }}>
+              Each dot below is 3.2 million people. The vast majority have never
+              meaningfully used AI. The people building skills, hooks, and MCP
+              pipelines are a microscopic slice.
+            </p>
+          </div>
+
+          <AdoptionDotGrid />
+
+          <p className="text-muted text-center max-w-xl mx-auto mt-8 text-[15px] leading-relaxed">
+            Every week you feel behind. You&apos;re not. Your chance to own the
+            space you&apos;re working in is still wide open.
+            <span className="block mt-2 text-xs font-mono">
+              — framing borrowed from Stephen Coleman, Stratum
+            </span>
+          </p>
+        </div>
+      </section>
+
       {/* ─── MATURITY FRAMEWORK ─── */}
       <section className="px-6 py-20 border-t border-border/40">
         <div className="max-w-3xl mx-auto">
@@ -471,6 +659,58 @@ export default function Home() {
               <LevelCard key={level.id} level={level} />
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ─── HARNESS LAYERS (KRANG) ─── */}
+      <section className="px-6 py-20 border-t border-border/40 bg-surface">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="font-mono text-xs text-muted uppercase tracking-wider mb-4">
+              why the levels work
+            </div>
+            <h2 style={{ fontSize: "36px", fontWeight: 700 }} className="mb-4">
+              Four layers. The model is the least of them.
+            </h2>
+            <p className="text-muted max-w-xl mx-auto" style={{ fontSize: "18px" }}>
+              A brain in a jar can&apos;t do anything. Strap it into a body,
+              hand it tools, and let someone with taste pilot it — now you have
+              a system. That&apos;s what each level of fluency is really unlocking.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-4">
+            {HARNESS_LAYERS.map((layer) => (
+              <div
+                key={layer.id}
+                className="border border-border/60 rounded-xl p-6 bg-[var(--card)]"
+              >
+                <div className="flex items-baseline gap-3 mb-3">
+                  <span
+                    className="font-mono text-xs font-bold px-2.5 py-1 rounded-md"
+                    style={{
+                      backgroundColor: `${layer.accent}15`,
+                      color: layer.accent,
+                    }}
+                  >
+                    {layer.label}
+                  </span>
+                  <span className="text-muted text-xs font-mono">
+                    {layer.sublabel}
+                  </span>
+                </div>
+                <p className="text-[15px] leading-relaxed text-muted">
+                  {layer.description}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-muted text-center max-w-xl mx-auto mt-8 text-[15px]">
+            <span className="font-mono text-xs">
+              — the Krang metaphor, via Stephen Coleman
+            </span>
+          </p>
         </div>
       </section>
 
@@ -557,8 +797,69 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── INSIGHTS PREVIEW ─── */}
+      <section className="px-6 py-20 border-t border-border/40">
+        <div className="max-w-3xl mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+            <div>
+              <div className="font-mono text-xs text-muted uppercase tracking-wider mb-3">
+                insights from the community
+              </div>
+              <h2 style={{ fontSize: "36px", fontWeight: 700 }} className="mb-2">
+                Seven frameworks, from people who ship.
+              </h2>
+              <p className="text-muted max-w-xl" style={{ fontSize: "17px" }}>
+                Pulled from the Claude Community Australia livestream. Each one
+                is the thing a serious builder picked to talk about in twenty
+                minutes. Start with whichever matches where you are.
+              </p>
+            </div>
+            <Link
+              href="/insights"
+              className="font-mono text-sm text-accent hover:underline whitespace-nowrap self-start sm:self-end"
+            >
+              see all seven →
+            </Link>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-4">
+            {FRAMEWORKS.slice(0, 4).map((f) => (
+              <Link
+                key={f.slug}
+                href={`/insights/${f.slug}`}
+                className="block border border-border/60 rounded-xl p-6 bg-[var(--card)] hover:border-accent/50 hover:bg-surface-hover transition-all"
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  {f.levels.map((lvl) => (
+                    <span
+                      key={lvl}
+                      className="font-mono text-[11px] font-bold px-2 py-0.5 rounded bg-accent/10 text-accent"
+                    >
+                      {lvl}
+                    </span>
+                  ))}
+                </div>
+                <h3 className="font-semibold mb-2" style={{ fontSize: "17px" }}>
+                  {f.title}
+                </h3>
+                <p className="text-muted text-[14px] leading-relaxed mb-4">
+                  {f.tagline}
+                </p>
+                <div className="font-mono text-xs text-muted">
+                  — {f.speaker.name}, {f.speaker.city}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ─── QUIZ / RESULT ─── */}
-      <section ref={quizRef} className="px-6 py-20 border-t border-border/40 bg-surface">
+      <section
+        id="quiz"
+        ref={quizRef}
+        className="px-6 py-20 border-t border-border/40 bg-surface scroll-mt-8"
+      >
         <div className="max-w-3xl mx-auto">
           {!quizStarted ? (
             <div className="text-center">
@@ -576,24 +877,14 @@ export default function Home() {
               </button>
             </div>
           ) : result ? (
-            <Result level={result} />
+            <Result level={result} onRetake={handleRetake} />
           ) : (
             <Quiz onComplete={setResult} />
           )}
         </div>
       </section>
 
-      {/* ─── FOOTER ─── */}
-      <footer className="px-6 py-8 border-t border-border/40">
-        <div className="max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted">
-          <div className="font-mono">
-            <span className="text-accent">claudecode</span>.studio
-          </div>
-          <div>
-            Made by someone who spent way too many late nights learning Claude Code — so you can skip the hard part.
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

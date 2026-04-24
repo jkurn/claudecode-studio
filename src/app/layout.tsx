@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { SITE } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,16 +14,35 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "claudecode.studio — Find Your Level",
-  description:
-    "The maturity framework for Claude Code. Take the quiz, find your level, get a structured path from prompter to orchestrator.",
+  metadataBase: new URL(SITE.url),
+  title: {
+    default: `${SITE.name} — find your level`,
+    template: `%s — ${SITE.name}`,
+  },
+  description: SITE.description,
   openGraph: {
-    title: "claudecode.studio — Find Your Level",
-    description:
-      "The maturity framework for Claude Code. Stop hoarding bookmarks. Start leveling up.",
+    title: `${SITE.name} — find your level`,
+    description: SITE.description,
     type: "website",
+    url: SITE.url,
+    siteName: SITE.name,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE.name} — find your level`,
+    description: SITE.description,
   },
 };
+
+/*
+ * Synchronously applies the saved theme preference before first paint, so
+ * dark-mode users don't see a light flash on load. Keep this small and
+ * failure-tolerant — a broken script here shouldn't break the page.
+ */
+const themeBootstrap = `try {
+  var t = localStorage.getItem('claudecode-studio:theme');
+  if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+} catch (_) {}`;
 
 export default function RootLayout({
   children,
@@ -33,8 +53,17 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
+      </head>
+      <body className="min-h-full flex flex-col">
+        <a href="#main" className="skip-to-content">
+          skip to content
+        </a>
+        {children}
+      </body>
     </html>
   );
 }
