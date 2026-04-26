@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "RSVP Speed Reader",
+  "version": "0.1.0",
+  "description": "Spritz-style speed reading. Select text on any page, press Alt+Shift+S, words flash one at a time with the focal letter aligned and highlighted.",
+  "permissions": ["activeTab", "storage"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "RSVP Speed Reader"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "commands": {
+    "start-rsvp": {
+      "suggested_key": {
+        "default": "Alt+Shift+S",
+        "mac": "Alt+Shift+S"
+      },
+      "description": "Start RSVP reader on selected text"
+    }
+  }
+}

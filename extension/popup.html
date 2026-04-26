@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <h1>RSVP Speed Reader</h1>
+      <p class="hint">Select text on the page, then press <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd> or click Start.</p>
+    </header>
+
+    <section class="row">
+      <label for="wpm">Speed</label>
+      <input type="range" id="wpm" min="100" max="900" step="25" />
+      <span id="wpmLabel" class="value"></span>
+    </section>
+
+    <section class="row">
+      <label for="fontSize">Size</label>
+      <input type="range" id="fontSize" min="32" max="96" step="2" />
+      <span id="fontSizeLabel" class="value"></span>
+    </section>
+
+    <section class="row checks">
+      <label><input type="checkbox" id="longWordSlowdown" /> Slow long words</label>
+      <label><input type="checkbox" id="punctuationPause" /> Pause on punctuation</label>
+    </section>
+
+    <section class="row checks">
+      <label><input type="radio" name="theme" value="dark" id="themeDark" /> Dark</label>
+      <label><input type="radio" name="theme" value="light" id="themeLight" /> Light</label>
+    </section>
+
+    <button id="start" class="primary">Start reading</button>
+
+    <footer>
+      <p>Pivot algorithm based on Spritz / Benedetto et al. (2015).</p>
+    </footer>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
